@@ -1,0 +1,65 @@
+<div ng-app="myApp" ng-controller="tweetsCtrl">
+    <div id="auth_card">
+        <div class="card demo-card-wide mdl-card mdl-shadow--4dp">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Cerca hashtag</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                Cerca:
+            </div>
+            <form id="pin_form">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <p>Autore/i del tweet</p>
+                    <input class="mdl-textfield__input" type="text"  ng-model="author">
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <p>Persona/e taggata/e nel tweet</p>
+                    <input class="mdl-textfield__input" type="text" ng-model="tag">
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <p>Parola/e chiave</p>
+                    <input class="mdl-textfield__input" type="text" ng-model="words">
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <p>Non contentente le parole</p>
+                    <input class="mdl-textfield__input" type="text" ng-model="notwords">
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <p>Lingua:</p>
+                    <input class="mdl-textfield__input" type="text" ng-model="lang">
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <p>Dalla data:</p>
+                    <input class="mdl-textfield__input" type="text" ng-model="sinceDate">
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <p>Alla data:</p>
+                    <input class="mdl-textfield__input" type="text" ng-model="toDate">
+                </div>
+                <div style="padding: 20px">
+                    <input type="checkbox" ng-model="noURL.value"/> No URL
+                    <br /><br />
+                    <input type="checkbox" ng-model="noMedia.value"/> No Media
+                </div>
+                <input class="mdl-button mdl-js-button mdl-button--raised" type="Submit" value="Send" ng-click="getTweets()">
+            </form>
+        </div>
+    </div>
+    <div class="mdl-grid">
+        <!--<div ng-repeat="el in list track by $index" style="width: 100%">
+            <div class="card demo-card-wide mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">{{el}}</h2>
+                </div>
+            </div>
+        </div>-->
+
+        <div class="card demo-card-wide mdl-card mdl-shadow--4dp">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">{{result}} {{confidence}}</h2>
+            </div>
+        </div>
+
+    </div>
+</div>
+

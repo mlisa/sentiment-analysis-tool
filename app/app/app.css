@@ -1,0 +1,71 @@
+/* app css stylesheet */
+
+/* ***************************** */
+/* HEADER */
+/* ***************************** */
+
+.header {
+    margin-bottom: 10px;;
+}
+
+/* ***************************** */
+/* SURVEYS */
+/* ***************************** */
+
+.demo-card-wide.mdl-card {
+    width: 700px;
+    margin: 10px auto;
+}
+.demo-card-wide > .mdl-card__title {
+    color: #000;
+    height: 100px;
+}
+.demo-card-wide > .mdl-card__menu {
+    color: #fff;
+}
+
+.demo-card-wide > .mdl-card__supporting-text {
+    font-size: 20px;
+}
+
+.result-container {
+    text-align: center;
+    line-height: 100px;
+    margin: 40px auto;
+}
+
+.question {
+    letter-spacing: 3px;
+    font-size: 25px;
+}
+
+.result, .error {
+    font-size: 35px;
+    letter-spacing: 5px;
+}
+
+.result {
+    color: deepskyblue;
+}
+
+.error {
+    color: orangered;
+}
+/* ***************************** */
+/* STATISTICS */
+/* ***************************** */
+
+#graph_container {
+    visibility: hidden;
+    /*margin: 20px 150px;*/
+}
+
+#pin_form {
+    margin: 0px 20px 80px 50px;
+}
+
+#auth_card {
+    /*margin: 10px 500px auto;*/
+    margin: 0 auto;
+}
+

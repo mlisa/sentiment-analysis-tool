@@ -1,0 +1,62 @@
+{
+  "app" : {
+
+    "sources" : [
+      "Twitter"
+    ],
+
+    "multiclassifiers" :
+    [
+      {
+        "type" : "type0",
+        "name" : "multi1",
+        "simpleclassifiers" : [
+           {
+             "type" : "Bayes",
+             "training_set_id" : "1",
+             "weight" : "0.6"
+           },
+           {
+             "type" : "Bayes",
+             "training_set_id" : "3",
+             "weight" : "0.4"
+           }
+         ]
+      },
+      { "type" : "type0",
+        "name" : "multi2",
+        "simpleclassifiers" : [
+          {
+            "type" : "Bayes",
+            "training_set_id" : "1",
+            "weight" : "0.5"
+          },
+          {
+            "type" : "Bayes",
+            "training_set_id" : "3",
+            "weight" : "0.0"
+          },
+          {
+            "type" : "Bayes",
+            "training_set_id" : "4",
+            "weight" : "0.5"
+          }
+        ]
+      }
+    ],
+
+    "twitter" : {
+      "source" : "twitter",
+      "OAuthConsumerKey" : "kSpu29PrqmXIPjXVGhtHSOxa4",
+      "OAuthConsumerSecret" : "C65f70IElyH5uVkkv27TznmsTJrzGVOe1RlyJcHddE4H9QqP1Y",
+      "OAuthAccessToken" : "1096228934-tUHnigfECS8LRdAplhM6oyrJWEVFGGChcuo2ZYL",
+      "OAuthAccessTokenSecret" : "hxW31xXtkYpAnTB82LinXgjZy7HgyCVesr0f5IyCopcxV",
+      "max_query" : 180,
+      "max_tweet_num" : 300,
+      "tweets_per_query": 100
+      },
+
+    "cors" : "http://127.0.0.1:8089"
+
+  }
+}
