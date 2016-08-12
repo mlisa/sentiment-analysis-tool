@@ -8,10 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lisamazzini on 23/07/16.
+ * Class that normalize the results from different sources in one type of Data, but also substitute emoticons and similar content
+ * to keyword in order to make them recognizable for the Classifiers.
  */
 public class Normalizer {
 
+    /**Method that normalizes the list of tweets that are under the Status (twitter4j) form into a list of generic Data
+     * @param statuses List of Status to normalize
+     * @return list of generic Data normalized
+     * @see Data */
     public static List<Data> normalizeTweets(List<Status> statuses){
 
         List<Data> tweets = new ArrayList<>();
@@ -24,6 +29,9 @@ public class Normalizer {
 
     }
 
+    /**Method that normalizes a given text, removing the @ tag, and substituting the emoticons
+     * @param norm string to normalize
+     * @return the string normalized*/
     public static String normalizeText(String norm){
         norm = norm.replaceAll("@\\p{L}+", "");
         if (containsPositiveEmoticon(norm)){
@@ -34,6 +42,9 @@ public class Normalizer {
         return norm;
     }
 
+    /**Method that check if a string contains a positive emoticon
+     * @param text string to check
+     * @return boolean*/
     private static boolean containsPositiveEmoticon(String text){
         return (text.contains(":)") ||
                 text.contains(":D") ||
@@ -54,9 +65,12 @@ public class Normalizer {
                 text.contains("^_^") ||
                 text.contains("^.^") ||
                 text.contains("<3") ||
-                text.contains("C:") );
+                text.contains("Source:") );
     }
 
+    /**Method that check if a string contains a negative emoticon
+     * @param text string to check
+     * @return boolean*/
     private static boolean containsNegativeEmoticon(String text){
         return (text.contains(":(") ||
                 text.contains(":((((") ||
@@ -66,7 +80,7 @@ public class Normalizer {
                 text.contains(":(") ||
                 text.contains(":-(") ||
                 text.contains("X(") ||
-                text.contains(":C") ||
+                text.contains(":Source") ||
                 text.contains(":-/") ||
                 text.contains(":/") ||
                 text.contains(">:(") ||

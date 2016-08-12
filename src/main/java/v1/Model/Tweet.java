@@ -2,13 +2,13 @@ package v1.Model;
 
 import org.hibernate.annotations.GenericGenerator;
 import twitter4j.Status;
-import v1.utility.C;
+import v1.utility.Source;
 
 import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by lisamazzini on 23/07/16.
+ * POJO class that represents a Tweet
  */
 
 @Entity
@@ -21,7 +21,7 @@ public class Tweet implements Data {
     private String text;
     private Integer retweets;
     private Integer favourites;
-    private String source;
+    private Source source;
 
     public Tweet(Status status, String normalizedText) {
         this.author = new TwitterUser(status.getUser());
@@ -29,7 +29,7 @@ public class Tweet implements Data {
         this.text = normalizedText;
         this.retweets = status.getRetweetCount();
         this.favourites = status.getFavoriteCount();
-        this.source = C.TWITTER_SOURCE;
+        this.source = Source.TWITTER;
     }
 
     public Tweet(){}
@@ -92,11 +92,11 @@ public class Tweet implements Data {
         this.favourites = favourites;
     }
 
-    public String getSource(){
+    public Source getSource(){
         return this.source;
     }
 
-    public void setSource(String source) {
+    public void setSource(Source source) {
         this.source = source;
     }
 

@@ -11,23 +11,26 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.store.FSDirectory;
 import v1.Model.TrainingText;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by lisamazzini on 25/06/16.
- * Controller che gestisce la creazione e scrittura dell'Index necessario al Classifier di Lucene.
+ * Controller that handles the Index from Apache Lucene lib. It creates and populates it, using data from database.
  */
 public class IndexController {
 
+    /**Constants used inside the index*/
     private final String FIELD_TEXT = "tweet", FIELD_CLASS = "polarity";
+    /**Directory where the Index is stored*/
     private Directory directory;
+    /**Analyzer used to parse data inside the Index*/
     private Analyzer analyzer = new ItalianAnalyzer();
+    /**Object used to write the Index*/
     private IndexWriter writer;
 
-    /**Costruttore pubblico; al suo interno viene creato e popolato l'indice*/
+    /**Public constructor
+     * @param trainingSetId training-set id in the database */
     public IndexController(int trainingSetId){
         try {
             IndexWriterConfig config = new IndexWriterConfig(this.analyzer);
@@ -40,8 +43,8 @@ public class IndexController {
         }
     }
 
-    /**Chiusura dell'IndexWriter*/
-    public void closeWriter(){
+    /**Method that closes the IndexWriter*/
+    private void closeWriter(){
         try {
             writer.commit();
             writer.close();
@@ -51,43 +54,45 @@ public class IndexController {
         }
     }
 
-    /**Getter per la directory dove è salvato l'index*/
+    /**Getter for the Directory*/
     public Directory getDirectory(){
         return this.directory;
     }
 
-    /**Getter per l'Analyzer utilizzato*/
+    /**Getter for the Analyzer */
     public Analyzer getAnalyzer(){
         return this.analyzer;
     }
 
-    /**Getter del nome del campo text*/
+    /**Getter for the field text*/
     public String getFieldText(){
         return FIELD_TEXT;
     }
 
-    /**Getter del nome del campo che identifica la classe*/
+    /**Getter fot the field class*/
     public String getFieldClass(){
         return FIELD_CLASS;
     }
 
-    /**Metodo per popolare l'indice*/
+    /**Method that populates the Indext, getting training text from the database
+     * @param trainingSetId id that identifies the training set where are stored the training text*/
     private void populateIndex(int trainingSetId){
         HibernateUtil hb = new HibernateUtil();
         List<TrainingText> trainingTextList = hb.getTrainingSetText(trainingSetId);
 
         for(TrainingText trainingText : trainingTextList){
-
-            Document doc = new Document();
-            addTweetAndClass(doc, trainingText.getText(), trainingText.getPolarity());
+            addTextAndClass(trainingText.getText(), trainingText.getPolarity());
 
         }
 
     }
 
-    /**Metodo per aggiungere a un documento testo e classe */
-    private void addTweetAndClass(Document doc, String tweet, String label){
-        doc.add(new TextField(FIELD_TEXT, Normalizer.normalizeText(tweet), Field.Store.NO));
+    /**Method to add to the index a text and a class for it
+     * @param text text to add in the index
+     * @param label class to give at the corresponding text*/
+    private void addTextAndClass( String text, String label){
+        Document doc = new Document();
+        doc.add(new TextField(FIELD_TEXT, Normalizer.normalizeText(text), Field.Store.NO));
         doc.add(new StringField(FIELD_CLASS, label, Field.Store.YES));
         try {
             this.writer.addDocument(doc);

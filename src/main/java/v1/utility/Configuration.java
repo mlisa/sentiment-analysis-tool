@@ -31,21 +31,31 @@ public class Configuration {
         return config.getString("app.twitter.OAuthConsumerKey");
     }
 
+    /**Getter for the OAuthConsumerSecret for Twitter API
+     * @return string representing OAuthConsumerSecret*/
     public static String getTwitterOAuthConsumerSecret(){
             Config config = ConfigFactory.load();
             return config.getString("app.twitter.OAuthConsumerSecret");
     }
 
+    /**Getter for the OAuthAccessToken for Twitter API
+     * @return string representing OAuthAccessToken*/
     public static String getTwitterOAuthAccessToken(){
             Config config = ConfigFactory.load();
             return config.getString("app.twitter.OAuthAccessToken");
     }
 
+    /**Getter for the OAuthAccessTokenSecret for Twitter API
+     * @return string representing OAuthAccessTokenSecret*/
     public static String getTwitterOAuthAccessTokenSecret(){
             Config config = ConfigFactory.load();
             return config.getString("app.twitter.OAuthAccessTokenSecret");
     }
 
+    /**Getter for the list of MultiClassifier that will be implemented inside the application.
+     * This method reads from configuration and creates the corresponding type of MultiClassifier
+     * @return list of MultiClassifier
+     * @see MultiClassifier*/
     public static List<MultiClassifier> getMulticlassifiers(){
         List<MultiClassifier> multiclassifiers = new ArrayList<>();
         Config c = ConfigFactory.load();
@@ -63,26 +73,32 @@ public class Configuration {
         return multiclassifiers;
     }
 
-    public static String getCors(){
-        Config c = ConfigFactory.load();
-        return c.getString("app.cors");
-    }
-
+    /**Getter for the maximum number of query that can be performed
+     * @return max query number*/
     public static int getTwitterMaxQueryNumber(){
         Config c = ConfigFactory.load();
         return c.getInt("app.twitter.max_query");
     }
 
+    /**Getter for the maximum number of tweets that will be retrieved from Twitter API
+     * @return max number of tweets*/
     public static int getTwitterMaxTweetsNumber(){
         Config c = ConfigFactory.load();
         return c.getInt("app.twitter.max_tweet_num");
     }
 
+    /**Getter for the number of tweets retrieved per query
+     * @return number of tweets*/
     public static int getTwitterTweetsPerQuery(){
         Config c = ConfigFactory.load();
         return c.getInt("app.twitter.tweets_per_query");
     }
 
+    /**Getter for GenericClassifiers that will be used inside a given Multiclassifier.
+     * @param multiclassifierName name of the MultiClassifier from which the configuration will be read
+     * @return list of GenericClassifier
+     * @see MultiClassifier
+     * @see GenericClassifier*/
     private static List<GenericClassifier> getSimpleClassifiers(String multiclassifierName){
         List<GenericClassifier> classifiers = new ArrayList<>();
         Config c = ConfigFactory.load();

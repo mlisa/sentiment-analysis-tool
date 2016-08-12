@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by lisamazzini on 23/07/16.
+ * POJO Class that represent a Twitter user.
  */
 
 @Entity
 @Table(name = "author")
-public class TwitterUser {
+public class TwitterUser implements Author{
 
 
     private String name;

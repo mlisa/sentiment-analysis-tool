@@ -12,16 +12,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Classe Singleton che gestisce il collegamento a Twitter per ottenere i permessi di lettura dal profilo dell'utente
+ * Class that handles the connection to Twitter, using Twitter4J lib (http://twitter4j.org).
  */
 public class TwitterConnection {
 
     private final Map<String, String> params;
 
+    /**Public constructor
+     * @param map map containing the query params*/
     public TwitterConnection(Map<String, String> map) {
         this.params = map;
     }
 
+    /**This method computes the List of Status from Twitter that matches the query params.
+     * @param maxId biggest id to retrieve, used to get more than 100 results, querying repeatedly from API
+     * @return the list of Status*/
     public List<Status> getStatusList(Long maxId){
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
@@ -48,6 +53,9 @@ public class TwitterConnection {
         return finalResult;
     }
 
+    /** Private method that builds the Query object, in accord to the params given.
+     * @param maxID  biggest id to retrieve
+     * @return Query object*/
     private Query buildQuery(Long maxID ) {
         String queryParams = "";
         Query query = new Query();

@@ -6,7 +6,7 @@
 angular.module('myApp.twitter', ['ngResource'])
 
     .factory('Report', ['$resource', function ($resource) {
-        return $resource('http://127.0.0.1:8088/tweets')
+        return $resource('http://127.0.0.1:8088/report')
     }])
 
     .controller('tweetsCtrl', ['$scope', 'Report', function ($scope, Report) {

@@ -7,7 +7,7 @@ import v1.Model.Report;
 import java.util.List;
 
 /**
- * Created by lisamazzini on 05/08/16.
+ * One implementation of MultiClassifier that uses weighted average to compute the final results for the classification.
  */
 public class MultiClassifierImpl extends MultiClassifier{
 
@@ -16,14 +16,14 @@ public class MultiClassifierImpl extends MultiClassifier{
     }
 
     @Override
-    protected void computeFinalResultForData(Data t){
+    protected void computeFinalResultForData(Data data){
 
         Double numerator = 0.0;
         Double denominator = 0.0;
         //Rilevanza del dato passato (nel caso di Twitter quanto è visibile, ecc)
         Double relevance = null;
         try {
-            relevance = this.evaluateRelevance(t);
+            relevance = this.evaluateRelevance(data);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -35,7 +35,7 @@ public class MultiClassifierImpl extends MultiClassifier{
 
         Double score = numerator/denominator;
 
-        System.out.println("Testo: " + t.getText() + "punteggio finale: " + numerator + " diviso " + denominator + " = " + score);
+        System.out.println("Testo: " + data.getText() + "punteggio finale: " + numerator + " diviso " + denominator + " = " + score);
         ClassifierResult finalResult = new ClassifierResult((score > 0 ? "positivo" : "negativo"), score);
         finalResult.setRelevance(relevance);
         finalResultsForData.add(finalResult);

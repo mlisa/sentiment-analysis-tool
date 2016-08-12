@@ -4,12 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class of constants (
- *
- * TODO: enum?
+ * Enum that represents the possible sources of Data.
  *
  */
 public enum Source {
 
-    TWITTER, FACEBOOK, INSTAGRAM,
+    TWITTER("Twitter"),
+    FACEBOOK("Facebook"),
+    LINKEDIN("Linkedin");
+
+    private final String name;
+
+    Source(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

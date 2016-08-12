@@ -1,9 +1,11 @@
 package v1.Model;
 
+import v1.utility.Source;
+
 import java.util.Date;
 
 /**
- * Created by lisamazzini on 03/08/16.
+ * Interface that represents generic Data to classify
  */
 public interface Data {
 
@@ -15,6 +17,6 @@ public interface Data {
 
     void setDate(Date date);
 
-    String getSource();
+    Source getSource();
 
 }

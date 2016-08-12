@@ -3,12 +3,11 @@ package v1.endpoints;
 import org.springframework.web.bind.annotation.*;
 import v1.Model.Report;
 import v1.controller.MainController;
-import v1.utility.C;
-import v1.utility.Configuration;
 
 import java.util.*;
 
 /**
+ * Class that uses Spring framework create API for the client to pass the query params and get back the response
  */
 @CrossOrigin(origins = api.CORS)
 @RestController
@@ -17,7 +16,8 @@ public class api {
     protected static final String CORS = "http://127.0.0.1:8089";
 
 
-    @RequestMapping("/tweets")
+    /**Method that maps the address with '/report'*/
+    @RequestMapping("/report")
     public Report getTweets(@RequestParam(value = "author", required = false) String author,
                             @RequestParam(value = "tag", required = false) String tag,
                             @RequestParam(value = "words", required = false) String words,

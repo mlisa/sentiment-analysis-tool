@@ -56,7 +56,5 @@
       "tweets_per_query": 100
       },
 
-    "cors" : "http://127.0.0.1:8089"
-
   }
 }

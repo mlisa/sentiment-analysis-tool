@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 /**
- * Created by lisamazzini on 01/08/16.
+ * POJO class that represents a training text.
  */
 
 @Entity

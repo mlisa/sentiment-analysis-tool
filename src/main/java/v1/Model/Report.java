@@ -1,7 +1,7 @@
 package v1.Model;
 
 /**
- * Created by lisamazzini on 03/08/16.
+ * POJO class that represents the final report of the classification.
  */
 
 //Sarà il risultato da far restituire dalle API
