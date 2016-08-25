@@ -26,13 +26,17 @@ public class MainController {
     /**List of the SourceController from where get the Data
      * @see SourceController*/
     private List<SourceController> sourceControllers = new ArrayList<>();
+    /***/
+    private static MainController mainController;
 
-    /** Public constructor
-     * @param params query params */
-    public MainController(Map<String, String> params) {
-
+    /** Public constructor*/
+    private MainController() {
         //Prendo i multiclassifier già belli che pronti dalla configurazione
         this.multiClassifiers = Configuration.getMulticlassifiers();
+
+    }
+
+    public void setParams(Map<String, String> params){
 
         //Creo i controller per ogni sorgente
         for(String source : Configuration.getSources()){
@@ -47,12 +51,13 @@ public class MainController {
         for(SourceController sourceController : sourceControllers){
             this.dataList.addAll(sourceController.getDataList());
         }
+    }
 
-        //Passo i dati ottenuti a ciascun multiclassifier
-        for(MultiClassifier multiClassifier : this.multiClassifiers){
-            multiClassifier.computeOpinion(this.dataList);
+    public static MainController getInstance(){
+        if(mainController == null){
+            mainController = new MainController();
         }
-
+        return mainController;
     }
 
     /**Getter for the final Report from the classifiers
@@ -65,7 +70,7 @@ public class MainController {
         }
 
         // TODO: gestione del report da più multiclassifier
-        return multiClassifiers.get(1).getReport();
+        return multiClassifiers.get(0).getReport();
 
     }
 

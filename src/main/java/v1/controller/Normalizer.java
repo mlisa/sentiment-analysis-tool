@@ -82,7 +82,7 @@ public class Normalizer {
                 text.contains("X(") ||
                 text.contains(":Source") ||
                 text.contains(":-/") ||
-                text.contains(":/") ||
+                //text.contains(":/") ||
                 text.contains(">:(") ||
                 text.contains("D:<") ||
                 text.contains(":'(") ||

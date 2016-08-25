@@ -35,7 +35,7 @@ public class MultiClassifierImpl extends MultiClassifier{
 
         Double score = numerator/denominator;
 
-        System.out.println("Testo: " + data.getText() + "punteggio finale: " + numerator + " diviso " + denominator + " = " + score);
+        System.out.println("Testo: " + data.getText() + " punteggio finale:" + score + "\n\n");
         ClassifierResult finalResult = new ClassifierResult((score > 0 ? "positivo" : "negativo"), score);
         finalResult.setRelevance(relevance);
         finalResultsForData.add(finalResult);

@@ -18,16 +18,20 @@ import java.io.IOException;
 public class ClassifierBayes implements GenericClassifier{
 
     /**Weight of the Classifier inside a particular MultiClassifier*/
-    private Double weight;
+    protected Double weight;
     /**IndexController to handle the Index required by Lucene Classifier*/
-    private IndexController indexController;
+    protected IndexController indexController;
+    /**TODO:doc */
+    protected Double minConfidence;
 
     /**Public constructor
      * @param weight weight of Classifier
      * @param trainingSetId id of the training set that will be used to train the classifier*/
-    public ClassifierBayes(double weight, int trainingSetId) {
+    public ClassifierBayes(Double weight, Integer trainingSetId, Double minConfidence) {
         this.weight = weight;
         this.indexController = new IndexController(trainingSetId);
+        this.indexController.populateIndex();
+        this.minConfidence = minConfidence;
     }
 
     public ClassifierResult classify(String text){
@@ -64,4 +68,7 @@ public class ClassifierBayes implements GenericClassifier{
         return weight;
     }
 
+    public Double getMinConfidence() {
+        return minConfidence;
+    }
 }

@@ -1,8 +1,14 @@
 package v1.endpoints;
 
 import org.springframework.web.bind.annotation.*;
+import v1.Model.ClassifierResult;
+import v1.Model.Data;
 import v1.Model.Report;
-import v1.controller.MainController;
+import v1.Model.TestText;
+import v1.controller.ClassifierBayes;
+import v1.controller.HibernateUtil;
+
+import v1.controller.TwitterController;
 
 import java.util.*;
 
@@ -11,13 +17,13 @@ import java.util.*;
  */
 @CrossOrigin(origins = api.CORS)
 @RestController
-public class api {
+public class addTweet {
 
     protected static final String CORS = "http://127.0.0.1:8089";
 
 
     /**Method that maps the address with '/report'*/
-    @RequestMapping("/report")
+    @RequestMapping("/add")
     public Report getTweets(@RequestParam(value = "author", required = false) String author,
                             @RequestParam(value = "tag", required = false) String tag,
                             @RequestParam(value = "words", required = false) String words,
@@ -40,10 +46,16 @@ public class api {
         params.put("noURL", noURL);
         params.put("noMedia", noMedia);
 
-        MainController mainController = MainController.getInstance();
-        mainController.setParams(params);
+        TwitterController twitterController = new TwitterController(params);
+        List<Data> data = twitterController.getDataList();
+        HibernateUtil h = new HibernateUtil();
 
-        return mainController.getReport();
+        for (Data d: data ) {
+            //h.setTrainingText(d.getText(), "negativo", 5);
+            System.out.println(d.getText());
+        }
+
+        return null;
     }
 
 }

@@ -60,12 +60,14 @@ public abstract class MultiClassifier {
             for(GenericClassifier c : simpleClassifiers){
                 //Classificazione del testo puro
                 ClassifierResult result = c.classify(d.getText());
-                //Aggiungo il peso che deve avere (in base al classificatore che l'ha prodotto)
-                result.setWeigth(c.getWeight());
-                System.out.println("Testo: " + d.getText() + " polarità: " + result.getPolarity() + " con score: " + result.getScore() + " e ha peso: " + result.getWeigth());
+                //Se il punteggio supera la soglia stabilita
+                if(result.getScore() >= c.getMinConfidence()) {
+                    //Aggiungo il peso che deve avere (in base al classificatore che l'ha prodotto)
+                    result.setWeigth(c.getWeight());
 
-                //Lo aggiungo alla lista
-                finalResultForClassifier.add(result);
+                    //Lo aggiungo alla lista
+                    finalResultForClassifier.add(result);
+                }
             }
             this.computeFinalResultForData(d);
         }

@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import v1.Model.TestText;
 import v1.Model.TrainingText;
 
 import javax.persistence.Query;
@@ -62,6 +63,21 @@ public class HibernateUtil {
         session.save(trainingText);
         t.commit();
         session.close();
+    }
+
+    /**Method that gives back a list of test text belonging to the given test set
+     * @param testSetId id of the requested test set
+     * @return list of test texts
+     * @see TestText */
+    public List<TestText> getTestSetList(int testSetId){
+        buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction t = session.beginTransaction();
+        Query query = session.createQuery("FROM TestText WHERE testSet = " + testSetId);
+        List<TestText> list = query.getResultList();
+        t.commit();
+        session.close();
+        return list;
     }
 
 }

@@ -28,16 +28,18 @@ public class IndexController {
     private Analyzer analyzer = new ItalianAnalyzer();
     /**Object used to write the Index*/
     private IndexWriter writer;
+    /**Training set id*/
+    private int trainingSetId;
 
     /**Public constructor
      * @param trainingSetId training-set id in the database */
     public IndexController(int trainingSetId){
         try {
             IndexWriterConfig config = new IndexWriterConfig(this.analyzer);
+            config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
             this.directory = FSDirectory.open(new File("src/main/resources/" + trainingSetId).toPath());
             this.writer =  new IndexWriter(directory, config);
-            populateIndex(trainingSetId);
-            closeWriter();
+            this.trainingSetId = trainingSetId;
         }catch(Exception e){
             System.out.println(e.getMessage() + e.getClass().toString());
         }
@@ -74,16 +76,16 @@ public class IndexController {
         return FIELD_CLASS;
     }
 
-    /**Method that populates the Indext, getting training text from the database
-     * @param trainingSetId id that identifies the training set where are stored the training text*/
-    private void populateIndex(int trainingSetId){
+    /**Method that populates the Indext, getting training text from the database*/
+    public void populateIndex(){
         HibernateUtil hb = new HibernateUtil();
-        List<TrainingText> trainingTextList = hb.getTrainingSetText(trainingSetId);
+        List<TrainingText> trainingTextList = hb.getTrainingSetText(this.trainingSetId);
 
         for(TrainingText trainingText : trainingTextList){
             addTextAndClass(trainingText.getText(), trainingText.getPolarity());
 
         }
+        this.closeWriter();
 
     }
 

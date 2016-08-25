@@ -3,10 +3,7 @@ package v1.utility;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigObject;
-import v1.controller.ClassifierBayes;
-import v1.controller.GenericClassifier;
-import v1.controller.MultiClassifier;
-import v1.controller.MultiClassifierImpl;
+import v1.controller.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,12 +100,15 @@ public class Configuration {
         List<GenericClassifier> classifiers = new ArrayList<>();
         Config c = ConfigFactory.load();
         List<? extends ConfigObject> list = c.getObjectList("app.multiclassifiers");
+
         for (ConfigObject co: list) {
             if(co.unwrapped().containsValue(multiclassifierName)){
                 List<? extends ConfigObject> value = co.toConfig().getObjectList("simpleclassifiers");
-                for(ConfigObject si : value){
-                    if(si.get("type").unwrapped().toString().equals("Bayes")){
-                        classifiers.add(new ClassifierBayes(Double.parseDouble(si.get("weight").unwrapped().toString()), Integer.parseInt(si.get("training_set_id").unwrapped().toString()))) ;
+                for(ConfigObject si : value) {
+                    if (si.get("type").unwrapped().toString().equals("Bayes")) {
+                        classifiers.add(new ClassifierBayes(Double.parseDouble(si.get("weight").unwrapped().toString()), Integer.parseInt(si.get("training_set_id").unwrapped().toString()), Double.parseDouble(si.get("minConfidence").unwrapped().toString())));
+                    } else if (si.get("type").unwrapped().toString().equals("BayesWNegation")) {
+                        classifiers.add(new ClassifierBayesWNegation(Double.parseDouble(si.get("weight").unwrapped().toString()), Integer.parseInt(si.get("training_set_id").unwrapped().toString()), Double.parseDouble(si.get("minConfidence").unwrapped().toString())));
                     }else{
                         throw new UnsupportedOperationException("Simple classifier type not supported yet");
                     }

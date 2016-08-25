@@ -6,6 +6,8 @@ import java.util.List;
 /**
  * Enum that represents the possible sources of Data.
  *
+ * TODO: quella questione del mapping dei tweet che tecnicamente nemmeno salvo quindi boh
+ *
  */
 public enum Source {
 

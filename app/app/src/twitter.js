@@ -6,10 +6,14 @@
 angular.module('myApp.twitter', ['ngResource'])
 
     .factory('Report', ['$resource', function ($resource) {
-        return $resource('http://127.0.0.1:8088/report')
+        return $resource('http://127.0.0.1:8088/add')
     }])
 
-    .controller('tweetsCtrl', ['$scope', 'Report', function ($scope, Report) {
+    .factory('Test', ['$resource', function ($resource) {
+        return $resource('http://127.0.0.1:8088/test')
+    }])
+
+    .controller('tweetsCtrl', ['$scope', 'Report', 'Test', function ($scope, Report, Test) {
 
         $scope.goToAuthPage = function(){
             window.open($scope.auth.url);
@@ -23,11 +27,15 @@ angular.module('myApp.twitter', ['ngResource'])
                 $scope.result = report.result;
                 $score.confidence = report.confidence;
             })
-        }
+        };
+
+        $scope.test = function () {
+            Test.get();
+        };
 
         $scope.noURL = {
             value : false
-        }
+        };
 
         $scope.noMedia = {
             value : false

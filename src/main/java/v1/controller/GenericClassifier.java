@@ -17,4 +17,8 @@ public interface GenericClassifier {
      * @return weight */
     Double getWeight();
 
-}
+    /**TODO: doc*/
+    Double getMinConfidence();
+
+
+    }
