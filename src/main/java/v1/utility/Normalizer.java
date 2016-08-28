@@ -1,4 +1,4 @@
-package v1.controller;
+package v1.utility;
 
 import twitter4j.Status;
 import v1.Model.Data;

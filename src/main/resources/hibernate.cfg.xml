@@ -23,11 +23,7 @@
         </property>
 
         <!-- List of XML mapping files -->
-        <mapping class="v1.Model.Tweet" />
-        <mapping class="v1.Model.TwitterUser"/>
         <mapping class="v1.Model.TrainingText"/>
-        <mapping class="v1.Model.TrainingSet"/>
-        <mapping class="v1.Model.TestSet"/>
         <mapping class="v1.Model.TestText"/>
 
 

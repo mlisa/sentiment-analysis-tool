@@ -4,6 +4,7 @@ import twitter4j.*;
 import v1.Model.Data;
 import v1.exception.QueryException;
 import v1.utility.Configuration;
+import v1.utility.Normalizer;
 import v1.utility.TwitterConnection;
 
 import java.util.ArrayList;

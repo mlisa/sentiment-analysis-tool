@@ -2,8 +2,9 @@ package v1.controller;
 
 import v1.Model.Data;
 import v1.Model.Report;
+import v1.classifiers.MultiClassifier;
 import v1.exception.QueryException;
-import v1.utility.Source;
+import v1.Model.Source;
 import v1.utility.Configuration;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class MainController {
 
     /**List of MultiClassifiers that will classify the Data
-     * @see MultiClassifier*/
+     * @see MultiClassifier */
     private MultiClassifier multiClassifier;
     /**List of Data to classify
      * @see Data*/

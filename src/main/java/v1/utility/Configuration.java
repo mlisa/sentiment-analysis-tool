@@ -3,7 +3,7 @@ package v1.utility;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigObject;
-import v1.controller.*;
+import v1.classifiers.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class Configuration {
     /**Getter for the list of MultiClassifier that will be implemented inside the application.
      * This method reads from configuration and creates the corresponding type of MultiClassifier
      * @return list of MultiClassifier
-     * @see MultiClassifier*/
+     * @see MultiClassifier */
     public static MultiClassifier getMulticlassifier(){
         Config c = ConfigFactory.load();
         MultiClassifier m = null;

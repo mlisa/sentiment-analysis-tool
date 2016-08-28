@@ -1,12 +1,15 @@
-package v1.controller;
+package v1.classifiers;
 
 
 import v1.Model.ClassifierResult;
 import v1.Model.Data;
 import v1.Model.Report;
+import v1.Model.TrainingSet;
+import v1.utility.Logic;
+import v1.utility.SemanticAnalyzer;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 /**
  * Abstract class representing a Multiclassifier. It uses more GenericClassifier in order to get a single classification.
@@ -69,7 +72,7 @@ public abstract class MultiClassifier {
                     //Aggiungo il peso che deve avere (in base al classificatore che l'ha prodotto)
 
                     result.setWeigth(c.getWeight());
-                    result.setWeigth(result.getWeigth()+SemanticAnalyzer.getAdverbScore(d));
+                    result.setWeigth(result.getWeigth()+ SemanticAnalyzer.getAdverbScore(d));
 
 
 
@@ -79,8 +82,7 @@ public abstract class MultiClassifier {
                         result.setWeigth(result.getWeigth() - SemanticAnalyzer.getPositiveEmoticonScore(d) + SemanticAnalyzer.getNegativeEmoticonScore(d));
                     }
 
-                    //TODO: modifico qui il peso in base al coso!!
-                    if (!(c.getTrainingSet().getId() == TrainingSets.SUPERLATIVES.getId() && c.getWeight() * SemanticAnalyzer.getSuperlativeScore(d) == 0)) {
+                    if (!(c.getTrainingSet().getId() == TrainingSet.SUPERLATIVES.getId() && c.getWeight() * SemanticAnalyzer.getSuperlativeScore(d) == 0)) {
                         finalResultForClassifier.add(result);
                     }
 

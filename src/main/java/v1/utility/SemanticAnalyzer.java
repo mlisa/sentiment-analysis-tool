@@ -1,4 +1,4 @@
-package v1.controller;
+package v1.utility;
 
 import v1.Model.Data;
 import org.apache.commons.lang3.StringUtils;

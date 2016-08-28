@@ -1,4 +1,4 @@
-package v1.controller;
+package v1.classifiers;
 
 import org.apache.lucene.classification.ClassificationResult;
 import org.apache.lucene.classification.SimpleNaiveBayesClassifier;
@@ -8,6 +8,8 @@ import org.apache.lucene.index.LeafReader;
 import org.apache.lucene.index.SlowCompositeReaderWrapper;
 import org.apache.lucene.util.BytesRef;
 import v1.Model.ClassifierResult;
+import v1.Model.TrainingSet;
+import v1.controller.IndexController;
 
 import java.io.IOException;
 
@@ -22,10 +24,10 @@ public class ClassifierBayes implements GenericClassifier{
     protected Double weight;
     /**IndexController to handle the Index required by Lucene Classifier*/
     protected IndexController indexController;
-    /**TODO:doc */
+    /**Minimum score acceptable for a result to be considered classifiable*/
     protected Double minConfidence;
     /**Trainingset type*/
-    protected TrainingSets trainingSet;
+    protected TrainingSet trainingSet;
 
     /**Public constructor
      * @param weight weight of Classifier
@@ -37,16 +39,16 @@ public class ClassifierBayes implements GenericClassifier{
         this.minConfidence = minConfidence;
         switch (trainingSetId){
             case 4:
-                this.trainingSet = TrainingSets.NRC;
+                this.trainingSet = TrainingSet.NRC;
                 break;
             case 5:
-                this.trainingSet = TrainingSets.REAL_TEXTS;
+                this.trainingSet = TrainingSet.REAL_TEXTS;
                 break;
             case 6:
-                this.trainingSet = TrainingSets.SUPERLATIVES;
+                this.trainingSet = TrainingSet.SUPERLATIVES;
                 break;
             case 7:
-                this.trainingSet = TrainingSets.HASHTAGS;
+                this.trainingSet = TrainingSet.HASHTAGS;
                 break;
             default:
                 throw new UnsupportedOperationException("Training set id not correct");
@@ -90,7 +92,7 @@ public class ClassifierBayes implements GenericClassifier{
     }
 
     @Override
-    public TrainingSets getTrainingSet() {
+    public TrainingSet getTrainingSet() {
         return this.trainingSet;
     }
 

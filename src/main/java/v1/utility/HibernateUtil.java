@@ -1,4 +1,4 @@
-package v1.controller;
+package v1.utility;
 
 import java.util.List;
 import org.hibernate.Session;

@@ -2,8 +2,6 @@ package v1.Model;
 
 import org.hibernate.annotations.GenericGenerator;
 import twitter4j.Status;
-import v1.utility.Source;
-
 import javax.persistence.*;
 import java.util.Date;
 

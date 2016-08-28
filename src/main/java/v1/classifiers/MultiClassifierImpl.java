@@ -1,4 +1,4 @@
-package v1.controller;
+package v1.classifiers;
 
 import v1.Model.ClassifierResult;
 import v1.Model.Data;

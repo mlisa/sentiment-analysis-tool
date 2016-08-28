@@ -1,6 +1,7 @@
-package v1.controller;
+package v1.classifiers;
 
 import v1.Model.ClassifierResult;
+import v1.Model.TrainingSet;
 
 /**
  * Interface that represents a GenericClassifier, that will be used inside a MultiClassifier object to classify Data.
@@ -17,13 +18,18 @@ public interface GenericClassifier {
      * @return weight */
     Double getWeight();
 
-    /**TODO: doc*/
+    /**Setter for the weight
+     * @param weight new weight to set*/
     void setWeight(Double weight);
 
-    /**TODO: doc*/
+    /**Getter for the minimum confidence established
+     * @return minimum confidence */
     Double getMinConfidence();
 
-    TrainingSets getTrainingSet();
+    /**Getter for the TrainingSet value of the classifier
+     * @return training set
+     * @see TrainingSet */
+    TrainingSet getTrainingSet();
 
 
     }

@@ -5,8 +5,9 @@ import v1.Model.Data;
 import v1.Model.Report;
 import v1.Model.TestData;
 import v1.Model.TestText;
-import v1.controller.*;
+import v1.classifiers.MultiClassifier;
 import v1.utility.Configuration;
+import v1.utility.HibernateUtil;
 
 import java.util.*;
 

@@ -1,12 +1,9 @@
 package v1.endpoints;
 
 import org.springframework.web.bind.annotation.*;
-import v1.Model.ClassifierResult;
 import v1.Model.Data;
 import v1.Model.Report;
-import v1.Model.TestText;
-import v1.controller.ClassifierBayes;
-import v1.controller.HibernateUtil;
+import v1.utility.HibernateUtil;
 
 import v1.controller.TwitterController;
 import v1.exception.QueryException;

@@ -1,10 +1,7 @@
-package v1.controller;
+package v1.utility;
 
 import v1.Model.Data;
 import v1.Model.Tweet;
-import v1.utility.Source;
-
-import static v1.utility.Source.TWITTER;
 
 /**
  * Class that implements the logic with which some parameters are computed. Those parameters may depend on Data's source,
@@ -19,7 +16,6 @@ public class Logic {
     public static Double computeRelevance(Data data){
         switch (data.getSource()){
             case TWITTER:
-                //TODO: calcola la rilevanza! ! !
                 Tweet tweet = (Tweet)data;
                 Integer favourites = tweet.getFavourites();
                 Integer followers = tweet.getAuthor().getFollowers();
