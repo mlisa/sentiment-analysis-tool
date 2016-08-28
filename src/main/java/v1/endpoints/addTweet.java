@@ -9,6 +9,7 @@ import v1.controller.ClassifierBayes;
 import v1.controller.HibernateUtil;
 
 import v1.controller.TwitterController;
+import v1.exception.QueryException;
 
 import java.util.*;
 
@@ -47,12 +48,17 @@ public class addTweet {
         params.put("noMedia", noMedia);
 
         TwitterController twitterController = new TwitterController(params);
-        List<Data> data = twitterController.getDataList();
+        List<Data> data = null;
+        try {
+            data = twitterController.getDataList();
+        } catch (QueryException e) {
+            e.printStackTrace();
+        }
         HibernateUtil h = new HibernateUtil();
 
         for (Data d: data ) {
-            //h.setTrainingText(d.getText(), "negativo", 5);
-            System.out.println(d.getText());
+            h.setTrainingText(d.getText(), "negativo", 5);
+            //System.out.println(d.getText());
         }
 
         return null;

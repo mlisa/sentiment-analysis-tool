@@ -17,12 +17,15 @@ import java.io.IOException;
  */
 public class ClassifierBayes implements GenericClassifier{
 
+
     /**Weight of the Classifier inside a particular MultiClassifier*/
     protected Double weight;
     /**IndexController to handle the Index required by Lucene Classifier*/
     protected IndexController indexController;
     /**TODO:doc */
     protected Double minConfidence;
+    /**Trainingset type*/
+    protected TrainingSets trainingSet;
 
     /**Public constructor
      * @param weight weight of Classifier
@@ -32,6 +35,22 @@ public class ClassifierBayes implements GenericClassifier{
         this.indexController = new IndexController(trainingSetId);
         this.indexController.populateIndex();
         this.minConfidence = minConfidence;
+        switch (trainingSetId){
+            case 4:
+                this.trainingSet = TrainingSets.NRC;
+                break;
+            case 5:
+                this.trainingSet = TrainingSets.REAL_TEXTS;
+                break;
+            case 6:
+                this.trainingSet = TrainingSets.SUPERLATIVES;
+                break;
+            case 7:
+                this.trainingSet = TrainingSets.HASHTAGS;
+                break;
+            default:
+                throw new UnsupportedOperationException("Training set id not correct");
+        }
     }
 
     public ClassifierResult classify(String text){
@@ -47,7 +66,7 @@ public class ClassifierBayes implements GenericClassifier{
             String assigned = result.getAssignedClass().utf8ToString();
             double score = result.getScore();
 
-            return new ClassifierResult(assigned, score);
+            return new ClassifierResult(assigned, score, text);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,19 +75,31 @@ public class ClassifierBayes implements GenericClassifier{
 
     }
 
+    public Double getWeight() {
+        return weight;
+    }
+
+
+    @Override
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public Double getMinConfidence() {
+        return minConfidence;
+    }
+
+    @Override
+    public TrainingSets getTrainingSet() {
+        return this.trainingSet;
+    }
+
+
     @Override
     public String toString() {
         return "ClassifierBayes{" +
                 "weight=" + weight +
                 ", indexController=" + indexController +
                 '}';
-    }
-
-    public Double getWeight() {
-        return weight;
-    }
-
-    public Double getMinConfidence() {
-        return minConfidence;
     }
 }

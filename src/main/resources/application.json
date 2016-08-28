@@ -5,8 +5,7 @@
       "Twitter"
     ],
 
-    "multiclassifiers" :
-    [
+    "multiclassifier" :
       {
         "type" : "type0",
         "name" : "multi1",
@@ -14,24 +13,17 @@
            {
              "type" : "Bayes",
              "training_set_id" : "4",
-             "weight" : "0.50",
-             "minConfidence" : 0.65
-           },
-           {
-             "type" : "Bayes",
-             "training_set_id" : "5",
-             "weight" : "0.25",
+             "weight" : "0.70",
              "minConfidence" : 0.65
            },
           {
             "type" : "Bayes",
             "training_set_id" : "6",
-            "weight" : "0.25",
+            "weight" : "0.30",
             "minConfidence" : 0.65
           }
          ]
-      }
-    ],
+      },
 
     "twitter" : {
       "source" : "twitter",
@@ -40,8 +32,8 @@
       "OAuthAccessToken" : "1096228934-tUHnigfECS8LRdAplhM6oyrJWEVFGGChcuo2ZYL",
       "OAuthAccessTokenSecret" : "hxW31xXtkYpAnTB82LinXgjZy7HgyCVesr0f5IyCopcxV",
       "max_query" : 180,
-      "max_tweet_num" : 50,
-      "tweets_per_query": 100
+      "max_tweet_num" : 200,
+      "tweets_per_query": 50
       }
 
   }

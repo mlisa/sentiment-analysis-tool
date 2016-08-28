@@ -1,6 +1,7 @@
 package v1.controller;
 
 import v1.Model.Data;
+import v1.Model.Tweet;
 import v1.utility.Source;
 
 import static v1.utility.Source.TWITTER;
@@ -19,7 +20,12 @@ public class Logic {
         switch (data.getSource()){
             case TWITTER:
                 //TODO: calcola la rilevanza! ! !
-                return 1.0;
+                Tweet tweet = (Tweet)data;
+                Integer favourites = tweet.getFavourites();
+                Integer followers = tweet.getAuthor().getFollowers();
+                Integer retweet = tweet.getRetweets();
+
+                return Math.log10(favourites*0.2+followers*0.6+retweet*0.4);
             default:
                 throw new UnsupportedOperationException("Not supported yet");
         }

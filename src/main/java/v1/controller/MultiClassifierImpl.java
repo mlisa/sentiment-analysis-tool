@@ -29,16 +29,21 @@ public class MultiClassifierImpl extends MultiClassifier{
         }
 
         for (ClassifierResult res : finalResultForClassifier){
+            System.out.println("score: " + res.getScore() + ", polarità: " + (res.getPolarity().equals("positivo") ? 1 : -1) + ", peso: "  + res.getWeigth());
             numerator += res.getScore() * (res.getPolarity().equals("positivo") ? 1 : -1) * res.getWeigth();
             denominator += res.getWeigth();
         }
 
-        Double score = numerator/denominator;
+        if (denominator != 0) {
 
-        System.out.println("Testo: " + data.getText() + " punteggio finale:" + score + "\n\n");
-        ClassifierResult finalResult = new ClassifierResult((score > 0 ? "positivo" : "negativo"), score);
-        finalResult.setRelevance(relevance);
-        finalResultsForData.add(finalResult);
+            Double score = numerator/denominator;
+
+            System.out.println("Testo: " + data.getText() + " punteggio finale:" + score + " ( " + numerator + " diviso " + denominator +"\n\n");
+            ClassifierResult finalResult = new ClassifierResult((score > 0 ? "positivo" : "negativo"), score, data.getText());
+            finalResult.setRelevance(relevance);
+            finalResultsForData.add(finalResult);
+        }
+
         finalResultForClassifier.clear();
     }
 
@@ -49,16 +54,37 @@ public class MultiClassifierImpl extends MultiClassifier{
         // Media pesata in base alla relevance dei dati
         Double num = 0.0;
         Double denum = 0.0;
+        int totPositive = 0;
+        int totNegative = 0;
+        double maxNeg = 0;
+        double maxPos = 0;
+        String posExample = "";
+        String negExample = "";
 
         for (ClassifierResult cl : finalResultsForData) {
+            if(cl.getPolarity().equals("positivo")){
+                totPositive++;
+                if(maxPos < cl.getScore()){
+                    maxPos = cl.getScore();
+                    posExample = cl.getText();
+                }
+            } else {
+                totNegative++;
+                if(maxNeg > cl.getScore()){
+                    maxNeg = cl.getScore();
+                    negExample = cl.getText();
+                }            }
             num += cl.getRelevance() * cl.getScore();
             denum += cl.getRelevance();
         }
 
+
+
         Double result = num/denum;
 
-        this.report = new Report(result > 0 ? "Nel complesso Positivo" : "Nel complesso Negativo", result);
+        this.report = new Report(result > 0 ? "Nel complesso Positivo" : "Nel complesso Negativo", totPositive, totNegative, posExample, negExample );
 
+        finalResultsForData.clear();
 
     }
 }

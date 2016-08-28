@@ -6,7 +6,7 @@
 angular.module('myApp.twitter', ['ngResource'])
 
     .factory('Report', ['$resource', function ($resource) {
-        return $resource('http://127.0.0.1:8088/add')
+        return $resource('http://127.0.0.1:8088/report')
     }])
 
     .factory('Test', ['$resource', function ($resource) {
@@ -24,8 +24,34 @@ angular.module('myApp.twitter', ['ngResource'])
             Report.get({author : $scope.author, tag : $scope.tag, words : $scope.words, notwords : $scope.notwords, lang : $scope.lang,
                 sinceDate : $scope.sinceDate, toDate : $scope.toDate, noURL : $scope.noURL.value, noMedia : $scope.noMedia.value}, function (report) {
 
-                $scope.result = report.result;
-                $score.confidence = report.confidence;
+                if(report.status == "OK") {
+                    $scope.result = report.result;
+                    $scope.positive = report.positive;
+                    $scope.negative = report.negative;
+                    $scope.total = report.total;
+                    $scope.esNegative = report.negExample;
+                    $scope.esPositive = report.posExample;
+
+                    var chart1 = c3.generate({
+                        bindto: "#graph",
+                        data: {
+                            columns: [
+                                ["Positivi", report.positive],
+                                ["Negativi", report.negative]
+                            ],
+                            type: 'pie',
+                            colors: {
+                                Positivi: '#52e85d',
+                                Negativi: '#e81e2b',
+                            }
+                        },
+                    });
+                    document.getElementById("report").style.visibility = "visible";
+                } else {
+                    alert(report.message);
+                }
+                
+
             })
         };
 

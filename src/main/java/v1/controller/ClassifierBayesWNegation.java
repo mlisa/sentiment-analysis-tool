@@ -14,7 +14,7 @@ public class ClassifierBayesWNegation extends ClassifierBayes {
     public ClassifierResult classify(String text){
         ClassifierResult result = super.classify(text);
         if(text.contains("non") || text.contains("NON") || text.contains("Non")){
-            return new ClassifierResult(this.invertPolarity(result), result.getScore());
+            return new ClassifierResult(this.invertPolarity(result), result.getScore(), text);
         }
         return result;
     }

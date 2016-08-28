@@ -1,71 +1,34 @@
-/* app css stylesheet */
 
-/* ***************************** */
-/* HEADER */
-/* ***************************** */
-
-.header {
-    margin-bottom: 10px;;
+.page-header {
+    margin-left: 15%;
+    margin-top: 2%;
 }
 
-/* ***************************** */
-/* SURVEYS */
-/* ***************************** */
-
-.demo-card-wide.mdl-card {
-    width: 700px;
-    margin: 10px auto;
-}
-.demo-card-wide > .mdl-card__title {
-    color: #000;
-    height: 100px;
-}
-.demo-card-wide > .mdl-card__menu {
-    color: #fff;
+.panel {
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
-.demo-card-wide > .mdl-card__supporting-text {
-    font-size: 20px;
+.form-group {
+    width: 80%;
 }
 
-.result-container {
-    text-align: center;
-    line-height: 100px;
-    margin: 40px auto;
+.btn {
+    margin-left: 1%;
+    margin-top: 1.5%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
-.question {
-    letter-spacing: 3px;
-    font-size: 25px;
-}
-
-.result, .error {
-    font-size: 35px;
-    letter-spacing: 5px;
-}
-
-.result {
-    color: deepskyblue;
-}
-
-.error {
-    color: orangered;
-}
-/* ***************************** */
-/* STATISTICS */
-/* ***************************** */
-
-#graph_container {
+#report {
     visibility: hidden;
-    /*margin: 20px 150px;*/
 }
 
-#pin_form {
-    margin: 0px 20px 80px 50px;
+#error {
+    display: none;
 }
 
-#auth_card {
-    /*margin: 10px 500px auto;*/
-    margin: 0 auto;
+#graph {
+    margin-top: 5%;
+    margin-right: auto;
 }
-

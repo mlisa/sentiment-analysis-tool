@@ -6,6 +6,7 @@ import v1.Model.Data;
 import v1.Model.Report;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 /**
  * Abstract class representing a Multiclassifier. It uses more GenericClassifier in order to get a single classification.
@@ -14,6 +15,9 @@ import java.util.List;
  */
 
 public abstract class MultiClassifier {
+
+    private static final String POSITIVE = "positivo";
+    private static final String NEGATIVE = "negativo";
 
     /**List of the single GenericClassifiers used in the MultiClassifier
      * @see GenericClassifier*/
@@ -63,7 +67,21 @@ public abstract class MultiClassifier {
                 //Se il punteggio supera la soglia stabilita
                 if(result.getScore() >= c.getMinConfidence()) {
                     //Aggiungo il peso che deve avere (in base al classificatore che l'ha prodotto)
+
                     result.setWeigth(c.getWeight());
+                    result.setWeigth(result.getWeigth()+SemanticAnalyzer.getAdverbScore(d));
+
+                    //TODO: modifico qui il peso in base al coso!!
+                    if (c.getTrainingSet() == TrainingSets.SUPERLATIVES) {
+                        result.setWeigth(c.getWeight() * SemanticAnalyzer.getSuperlativeScore(d));
+                    }
+
+
+                    if(result.getPolarity().equals(POSITIVE)){
+                        result.setWeigth(result.getWeigth() + SemanticAnalyzer.getPositiveEmoticonScore(d) - SemanticAnalyzer.getNegativeEmoticonScore(d));
+                    }else{
+                        result.setWeigth(result.getWeigth() - SemanticAnalyzer.getPositiveEmoticonScore(d) + SemanticAnalyzer.getNegativeEmoticonScore(d));
+                    }
 
                     //Lo aggiungo alla lista
                     finalResultForClassifier.add(result);

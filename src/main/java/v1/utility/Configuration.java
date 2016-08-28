@@ -53,21 +53,21 @@ public class Configuration {
      * This method reads from configuration and creates the corresponding type of MultiClassifier
      * @return list of MultiClassifier
      * @see MultiClassifier*/
-    public static List<MultiClassifier> getMulticlassifiers(){
-        List<MultiClassifier> multiclassifiers = new ArrayList<>();
+    public static MultiClassifier getMulticlassifier(){
         Config c = ConfigFactory.load();
-        List<? extends ConfigObject> list = c.getObjectList("app.multiclassifiers");
-        for(ConfigObject co : list){
+        MultiClassifier m = null;
+        ConfigObject co = c.getObject("app.multiclassifier");
             if(co.get("type").unwrapped().toString().equals("type0")){
                 try {
                     List<GenericClassifier> l = getSimpleClassifiers(co.get("name").unwrapped().toString());
-                    multiclassifiers.add(new MultiClassifierImpl(l));
+                    m = new MultiClassifierImpl(l);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                throw new UnsupportedOperationException("Multiclassifier not supported yet");
             }
-        }
-        return multiclassifiers;
+        return m;
     }
 
     /**Getter for the maximum number of query that can be performed
@@ -99,22 +99,21 @@ public class Configuration {
     private static List<GenericClassifier> getSimpleClassifiers(String multiclassifierName){
         List<GenericClassifier> classifiers = new ArrayList<>();
         Config c = ConfigFactory.load();
-        List<? extends ConfigObject> list = c.getObjectList("app.multiclassifiers");
+        ConfigObject co = c.getObject("app.multiclassifier");
 
-        for (ConfigObject co: list) {
-            if(co.unwrapped().containsValue(multiclassifierName)){
-                List<? extends ConfigObject> value = co.toConfig().getObjectList("simpleclassifiers");
-                for(ConfigObject si : value) {
-                    if (si.get("type").unwrapped().toString().equals("Bayes")) {
-                        classifiers.add(new ClassifierBayes(Double.parseDouble(si.get("weight").unwrapped().toString()), Integer.parseInt(si.get("training_set_id").unwrapped().toString()), Double.parseDouble(si.get("minConfidence").unwrapped().toString())));
-                    } else if (si.get("type").unwrapped().toString().equals("BayesWNegation")) {
-                        classifiers.add(new ClassifierBayesWNegation(Double.parseDouble(si.get("weight").unwrapped().toString()), Integer.parseInt(si.get("training_set_id").unwrapped().toString()), Double.parseDouble(si.get("minConfidence").unwrapped().toString())));
-                    }else{
-                        throw new UnsupportedOperationException("Simple classifier type not supported yet");
-                    }
+        if(co.unwrapped().containsValue(multiclassifierName)){
+            List<? extends ConfigObject> value = co.toConfig().getObjectList("simpleclassifiers");
+            for(ConfigObject si : value) {
+                if (si.get("type").unwrapped().toString().equals("Bayes")) {
+                    classifiers.add(new ClassifierBayes(Double.parseDouble(si.get("weight").unwrapped().toString()), Integer.parseInt(si.get("training_set_id").unwrapped().toString()), Double.parseDouble(si.get("minConfidence").unwrapped().toString())));
+                } else if (si.get("type").unwrapped().toString().equals("BayesWNegation")) {
+                    classifiers.add(new ClassifierBayesWNegation(Double.parseDouble(si.get("weight").unwrapped().toString()), Integer.parseInt(si.get("training_set_id").unwrapped().toString()), Double.parseDouble(si.get("minConfidence").unwrapped().toString())));
+                }else{
+                    throw new UnsupportedOperationException("Simple classifier type not supported yet");
                 }
             }
         }
+
 
         return classifiers;
     }

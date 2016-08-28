@@ -1,6 +1,7 @@
 package v1.controller;
 
 import v1.Model.Data;
+import v1.exception.QueryException;
 
 import java.util.List;
 
@@ -12,6 +13,6 @@ public interface SourceController {
     /**Returns the results from Twitter, under the form of generic Data
      * @return the list of Data from the query
      * @see Data*/
-    List<Data> getDataList();
+    List<Data> getDataList() throws QueryException;
 
 }

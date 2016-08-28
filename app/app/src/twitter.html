@@ -1,66 +1,94 @@
 <div ng-app="myApp" ng-controller="tweetsCtrl">
-    <div id="auth_card">
-        <div class="card demo-card-wide mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Cerca hashtag</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-                Cerca:
-            </div>
-            <form id="pin_form">
-                <div class="mdl-textfield mdl-js-textfield">
-                    <p>Autore/i del tweet</p>
-                    <input class="mdl-textfield__input" type="text"  ng-model="author">
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h2 class="panel-title">Parametri di ricerca</h2>
+        </div>
+        <div class="panel-body">
+            <form>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="authorForm">Autore</label>
+                        <input type="text" class="form-control" id="authorForm" ng-model="author">
+                    </div>
+                    <div class="form-group">
+                        <label for="tagForm">Tag</label>
+                        <input type="text" class="form-control" id="tagForm" ng-model="tag">
+                    </div>
+                    <div class="form-group">
+                        <label for="keywordForm">Contenenti le seguenti parole</label>
+                        <input type="text" class="form-control" id="keywordForm" ng-model="words">
+                    </div>
+                    <div class="form-group">
+                        <label for="notKeywordsForm">Non contenente le seguenti parole</label>
+                        <input type="text" class="form-control" id="notKeywordsForm" ng-model="notwords">
+                    </div>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                    <p>Persona/e taggata/e nel tweet</p>
-                    <input class="mdl-textfield__input" type="text" ng-model="tag">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="languageForm">Lingua</label>
+                        <select class="form-control" id="languageForm" ng-model="lang">
+                            <option>it</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sinceDateForm">Dalla data</label>
+                        <input type="date" class="form-control" id="sinceDateForm" ng-model="sinceDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="toDateForm">Alla data</label>
+                        <input type="date" class="form-control" id="toDateForm" ng-model="toDate">
+                    </div>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                    <p>Parola/e chiave</p>
-                    <input class="mdl-textfield__input" type="text" ng-model="words">
-                </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                    <p>Non contentente le parole</p>
-                    <input class="mdl-textfield__input" type="text" ng-model="notwords">
-                </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                    <p>Lingua:</p>
-                    <input class="mdl-textfield__input" type="text" ng-model="lang">
-                </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                    <p>Dalla data:</p>
-                    <input class="mdl-textfield__input" type="text" ng-model="sinceDate">
-                </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                    <p>Alla data:</p>
-                    <input class="mdl-textfield__input" type="text" ng-model="toDate">
-                </div>
-                <div style="padding: 20px">
+                <div>
                     <input type="checkbox" ng-model="noURL.value"/> No URL
-                    <br /><br />
                     <input type="checkbox" ng-model="noMedia.value"/> No Media
                 </div>
-                <input class="mdl-button mdl-js-button mdl-button--raised" type="Submit" value="Send" ng-click="getTweets()">
-                <button class="mdl-button mdl-js-button mdl-button--raised"  ng-click="test()">Test</button>
+                <input class="btn btn-primary" type="Submit" value="Analizza" ng-click="getTweets()">
+                <button class="btn btn-primary"  ng-click="test()">Test</button>
+
+
             </form>
         </div>
     </div>
-    <div class="mdl-grid">
-        <!--<div ng-repeat="el in list track by $index" style="width: 100%">
-            <div class="card demo-card-wide mdl-card mdl-shadow--4dp">
-                <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">{{el}}</h2>
-                </div>
-            </div>
-        </div>-->
 
-        <div class="card demo-card-wide mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">{{result}} {{confidence}}</h2>
+    <div id="report" class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Report</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="col-xs-6">
+                <div id="graph"></div>
+            </div>
+            <div class="col-xs-6">
+                <h2>{{result}}</h2>
+                <table class="table table-striped">
+                    <tr class="active">
+                        <td>Totali esaminati</td>
+                        <td>{{total}}</td>
+                    </tr>
+                    <tr class="success">
+                        <td>Positivi</td>
+                        <td>{{positive}}</td>
+                    </tr>
+                    <tr class="danger">
+                        <td>Negativi</td>
+                        <td>{{negative}}</td>
+                    </tr>
+                </table>
+
+                <h5>Esempio positivo</h5>
+                <p class="bg-success"> {{esPositive}}</p>
+
+                <h5>Esempio negativo</h5>
+                <p class="bg-danger"> {{esNegative}}</p>
+
             </div>
         </div>
-
     </div>
-</div>
 
+
+
+
+</div>

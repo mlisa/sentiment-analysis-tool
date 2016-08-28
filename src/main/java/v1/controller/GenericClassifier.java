@@ -18,7 +18,12 @@ public interface GenericClassifier {
     Double getWeight();
 
     /**TODO: doc*/
+    void setWeight(Double weight);
+
+    /**TODO: doc*/
     Double getMinConfidence();
+
+    TrainingSets getTrainingSet();
 
 
     }

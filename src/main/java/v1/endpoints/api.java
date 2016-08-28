@@ -3,6 +3,7 @@ package v1.endpoints;
 import org.springframework.web.bind.annotation.*;
 import v1.Model.Report;
 import v1.controller.MainController;
+import v1.exception.QueryException;
 
 import java.util.*;
 
@@ -41,7 +42,11 @@ public class api {
         params.put("noMedia", noMedia);
 
         MainController mainController = MainController.getInstance();
-        mainController.setParams(params);
+        try {
+            mainController.setParams(params);
+        } catch (QueryException e) {
+            return new Report("", 0,0,"","", e.getMessage());
+        }
 
         return mainController.getReport();
     }

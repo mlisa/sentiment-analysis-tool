@@ -9,10 +9,12 @@ public class ClassifierResult {
     private Double score;
     private Double weight;
     private Double relevance;
+    private String text;
 
-    public ClassifierResult(String polarity, Double score) {
+    public ClassifierResult(String polarity, Double score, String text) {
         this.polarity = polarity;
         this.score = score;
+        this.text = text;
     }
 
     public String getPolarity() {
@@ -28,7 +30,9 @@ public class ClassifierResult {
     }
 
     public void setWeigth(Double weight) {
-        this.weight = weight;
+        if(this.weight == null || (this.weight < 1 && weight < 1 && this.weight >= 0.5 && weight >= 0.5)) {
+            this.weight = weight;
+        }
     }
 
     public Double getRelevance() {
@@ -37,5 +41,9 @@ public class ClassifierResult {
 
     public void setRelevance(Double relevance) {
         this.relevance = relevance;
+    }
+
+    public String getText() {
+        return text;
     }
 }

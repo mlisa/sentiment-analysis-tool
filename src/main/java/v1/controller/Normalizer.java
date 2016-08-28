@@ -29,16 +29,21 @@ public class Normalizer {
 
     }
 
-    /**Method that normalizes a given text, removing the @ tag, and substituting the emoticons
+    /**Method that normalizes a given text, removing the @ tag and substituting the emoticons
      * @param norm string to normalize
      * @return the string normalized*/
     public static String normalizeText(String norm){
-        norm = norm.replaceAll("@\\p{L}+", "");
-        if (containsPositiveEmoticon(norm)){
-            norm = norm.concat(" posEmot");
-        } else if (containsNegativeEmoticon(norm)){
-            norm = norm.concat(" negEmot");
+        norm = norm.replaceAll("@[A-Za-z_]+", "");
+        String[] string = norm.split(" ");
+
+        for (String s :string) {
+            if (containsPositiveEmoticon(s)) {
+                norm = norm.concat(" posEmot");
+            } else if (containsNegativeEmoticon(s)) {
+                norm = norm.concat(" negEmot");
+            }
         }
+
         return norm;
     }
 
@@ -64,8 +69,7 @@ public class Normalizer {
                 text.contains("^^") ||
                 text.contains("^_^") ||
                 text.contains("^.^") ||
-                text.contains("<3") ||
-                text.contains("Source:") );
+                text.contains("<3"));
     }
 
     /**Method that check if a string contains a negative emoticon
@@ -80,9 +84,7 @@ public class Normalizer {
                 text.contains(":(") ||
                 text.contains(":-(") ||
                 text.contains("X(") ||
-                text.contains(":Source") ||
                 text.contains(":-/") ||
-                //text.contains(":/") ||
                 text.contains(">:(") ||
                 text.contains("D:<") ||
                 text.contains(":'(") ||

@@ -2,6 +2,7 @@ package v1.controller;
 
 import twitter4j.*;
 import v1.Model.Data;
+import v1.exception.QueryException;
 import v1.utility.Configuration;
 import v1.utility.TwitterConnection;
 
@@ -22,13 +23,14 @@ public class TwitterController implements SourceController{
     /**Public constructor
      * @param map the map containing all the params from the query */
     public TwitterController(Map<String, String> map){
-        this.twitterConnection = new TwitterConnection(map);
+        this.twitterConnection = new TwitterConnection();
+        this.twitterConnection.setParams(map);
     }
 
     /**Returns the results from Twitter, under the form of generic Data
      * @return the list of Data from the query
      * @see Data*/
-    public List<Data> getDataList() {
+    public List<Data> getDataList() throws QueryException {
 
         //LastID needed for querying more than 100 elements
         long lastID = Long.MAX_VALUE;
@@ -36,11 +38,17 @@ public class TwitterController implements SourceController{
         List<Status> list = new ArrayList<>();
 
         while ( list.size() < Configuration.getTwitterMaxTweetsNumber() && nQuery < Configuration.getTwitterMaxQueryNumber()) {
-            list = this.twitterConnection.getStatusList(lastID);
+            try {
+                list = this.twitterConnection.getStatusList(lastID);
+            } catch (TwitterException e) {
+                throw new QueryException("Parametri della query non sufficienti!");
+            }
 
             //Search for the last id
             for (Status t : list) {
-                if (t.getId() < lastID) lastID = t.getId();
+                if (t.getId() < lastID){
+                    lastID = t.getId();
+                }
             }
 
             //If the list is empty or the query returns less than 100 results, stop the search
@@ -50,7 +58,9 @@ public class TwitterController implements SourceController{
             nQuery++;
         }
 
-        return Normalizer.normalizeTweets(list);
+        List<Data> datas = Normalizer.normalizeTweets(list);
+        list.clear();
+        return datas;
     }
 
 }

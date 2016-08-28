@@ -2,6 +2,7 @@ package v1.controller;
 
 import v1.Model.Data;
 import v1.Model.Report;
+import v1.exception.QueryException;
 import v1.utility.Source;
 import v1.utility.Configuration;
 
@@ -19,7 +20,7 @@ public class MainController {
 
     /**List of MultiClassifiers that will classify the Data
      * @see MultiClassifier*/
-    private List<MultiClassifier> multiClassifiers;
+    private MultiClassifier multiClassifier;
     /**List of Data to classify
      * @see Data*/
     private List<Data> dataList = new ArrayList<>();
@@ -32,12 +33,13 @@ public class MainController {
     /** Public constructor*/
     private MainController() {
         //Prendo i multiclassifier già belli che pronti dalla configurazione
-        this.multiClassifiers = Configuration.getMulticlassifiers();
+        this.multiClassifier = Configuration.getMulticlassifier();
 
     }
 
-    public void setParams(Map<String, String> params){
+    public void setParams(Map<String, String> params) throws QueryException {
 
+        sourceControllers.clear();
         //Creo i controller per ogni sorgente
         for(String source : Configuration.getSources()){
             if(source.equals(Source.TWITTER.getName())){
@@ -64,13 +66,11 @@ public class MainController {
      * @return final report
      * @see Report*/
     public Report getReport(){
-        for(MultiClassifier m : this.multiClassifiers) {
-            System.out.println("----------MULTICLASSIFICATORE----------");
-            m.computeOpinion(this.dataList);
-        }
 
-        // TODO: gestione del report da più multiclassifier
-        return multiClassifiers.get(0).getReport();
+        multiClassifier.computeOpinion(this.dataList);
+
+        this.dataList.clear();
+        return multiClassifier.getReport();
 
     }
 

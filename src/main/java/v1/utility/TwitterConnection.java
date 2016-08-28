@@ -16,18 +16,16 @@ import java.util.Map;
  */
 public class TwitterConnection {
 
-    private final Map<String, String> params;
+    private Map<String, String> params;
 
-    /**Public constructor
-     * @param map map containing the query params*/
-    public TwitterConnection(Map<String, String> map) {
-        this.params = map;
+    public void setParams(Map<String, String> params) {
+        this.params = params;
     }
 
     /**This method computes the List of Status from Twitter that matches the query params.
      * @param maxId biggest id to retrieve, used to get more than 100 results, querying repeatedly from API
      * @return the list of Status*/
-    public List<Status> getStatusList(Long maxId){
+    public List<Status> getStatusList(Long maxId) throws TwitterException {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
                 .setOAuthConsumerKey(Configuration.getTwitterOAuthConsumerKey())
@@ -40,17 +38,18 @@ public class TwitterConnection {
         SearchResource searchResource = tw.search();
         List<Status> finalResult = new ArrayList<>();
 
-        try {
-            List<Status> list = searchResource.search(this.buildQuery(maxId)).getTweets();
-            for (Status result : list) {
-                //Adding only original tweets, no retweets, and checking if they contain media o urls, if the parameters are true in the query map
-                if(!((params.get("noURL").equals("true") && result.getURLEntities().length != 0) ||  (params.get("noMedia").equals("true") && result.getMediaEntities().length != 0)) && !result.isRetweet())
-                    finalResult.add(result);
-            }
-        } catch (TwitterException e) {
-            e.printStackTrace();
+
+        List<Status> list = searchResource.search(this.buildQuery(maxId)).getTweets();
+        for (Status result : list) {
+            //Adding only original tweets, no retweets, and checking if they contain media o urls, if the parameters are true in the query map
+            if(!((params.get("noURL").equals("true") && result.getURLEntities().length != 0) ||  (params.get("noMedia").equals("true") && result.getMediaEntities().length != 0)) && !result.isRetweet())
+                finalResult.add(result);
         }
-        return finalResult;
+
+
+        List<Status> finalRes = finalResult;
+
+        return finalRes;
     }
 
     /** Private method that builds the Query object, in accord to the params given.
@@ -70,7 +69,9 @@ public class TwitterConnection {
                 } else if (pair.getKey() == "lang") {
                     query.setLang(pair.getValue().toString());
                 } else if(pair.getKey() == "author") {
-                    queryParams = queryParams.concat("from:" + pair.getValue().toString());
+                    queryParams = queryParams.concat(" from:" + pair.getValue().toString() + " ");
+                }else if(pair.getKey() == "notwords") {
+                    queryParams = queryParams.concat(" -" + pair.getValue().toString() + " ");
                 } else if(pair.getKey() != "noURL" && pair.getKey() != "noMedia")  {
                     queryParams = queryParams.concat(" " + pair.getValue().toString());
                 }
