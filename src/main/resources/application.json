@@ -33,7 +33,7 @@
       "OAuthAccessTokenSecret" : "hxW31xXtkYpAnTB82LinXgjZy7HgyCVesr0f5IyCopcxV",
       "max_query" : 180,
       "max_tweet_num" : 200,
-      "tweets_per_query": 50
+      "tweets_per_query": 100
       }
 
   }

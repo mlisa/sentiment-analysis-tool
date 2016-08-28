@@ -8,7 +8,6 @@ package v1.Model;
 public class Report {
 
     private String result;
-    private Double confidence;
     private int positive;
     private int negative;
     private int total;
@@ -81,11 +80,5 @@ public class Report {
         return message;
     }
 
-    @Override
-    public String toString() {
-        return "Report{" +
-                "result='" + result + '\'' +
-                ", confidence=" + confidence +
-                '}';
-    }
+
 }

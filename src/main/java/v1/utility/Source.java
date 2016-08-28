@@ -13,7 +13,8 @@ public enum Source {
 
     TWITTER("Twitter"),
     FACEBOOK("Facebook"),
-    LINKEDIN("Linkedin");
+    LINKEDIN("Linkedin"),
+    TEST("Test");
 
     private final String name;
 

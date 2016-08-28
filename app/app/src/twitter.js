@@ -41,8 +41,8 @@ angular.module('myApp.twitter', ['ngResource'])
                             ],
                             type: 'pie',
                             colors: {
-                                Positivi: '#52e85d',
-                                Negativi: '#e81e2b',
+                                Positivi: '#26A65B',
+                                Negativi: '#D91E18',
                             }
                         },
                     });
@@ -56,7 +56,36 @@ angular.module('myApp.twitter', ['ngResource'])
         };
 
         $scope.test = function () {
-            Test.get();
+            Test.get(function (report) {
+                if(report.status == "OK") {
+                    $scope.result = report.result;
+                    $scope.positive = report.positive;
+                    $scope.negative = report.negative;
+                    $scope.total = report.total;
+                    $scope.esNegative = report.negExample;
+                    $scope.esPositive = report.posExample;
+
+                    var chart1 = c3.generate({
+                        bindto: "#graph",
+                        data: {
+                            columns: [
+                                ["Positivi", report.positive],
+                                ["Negativi", report.negative]
+                            ],
+                            type: 'pie',
+                            colors: {
+                                Positivi: '#26A65B',
+                                Negativi: '#D91E18',
+                            }
+                        },
+                    });
+                    document.getElementById("report").style.visibility = "visible";
+                } else {
+                    alert(report.message);
+                }               
+
+            });
+           
         };
 
         $scope.noURL = {

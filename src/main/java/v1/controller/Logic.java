@@ -26,6 +26,8 @@ public class Logic {
                 Integer retweet = tweet.getRetweets();
 
                 return Math.log10(favourites*0.2+followers*0.6+retweet*0.4);
+            case TEST:
+                return 1.0;
             default:
                 throw new UnsupportedOperationException("Not supported yet");
         }

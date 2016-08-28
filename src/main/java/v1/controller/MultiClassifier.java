@@ -71,10 +71,6 @@ public abstract class MultiClassifier {
                     result.setWeigth(c.getWeight());
                     result.setWeigth(result.getWeigth()+SemanticAnalyzer.getAdverbScore(d));
 
-                    //TODO: modifico qui il peso in base al coso!!
-                    if (c.getTrainingSet() == TrainingSets.SUPERLATIVES) {
-                        result.setWeigth(c.getWeight() * SemanticAnalyzer.getSuperlativeScore(d));
-                    }
 
 
                     if(result.getPolarity().equals(POSITIVE)){
@@ -83,8 +79,11 @@ public abstract class MultiClassifier {
                         result.setWeigth(result.getWeigth() - SemanticAnalyzer.getPositiveEmoticonScore(d) + SemanticAnalyzer.getNegativeEmoticonScore(d));
                     }
 
-                    //Lo aggiungo alla lista
-                    finalResultForClassifier.add(result);
+                    //TODO: modifico qui il peso in base al coso!!
+                    if (!(c.getTrainingSet().getId() == TrainingSets.SUPERLATIVES.getId() && c.getWeight() * SemanticAnalyzer.getSuperlativeScore(d) == 0)) {
+                        finalResultForClassifier.add(result);
+                    }
+
                 }
             }
             this.computeFinalResultForData(d);
