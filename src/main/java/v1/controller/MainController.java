@@ -1,10 +1,10 @@
 package v1.controller;
 
-import v1.Model.Data;
-import v1.Model.Report;
+import v1.model.Data;
+import v1.model.Report;
 import v1.classifiers.MultiClassifier;
 import v1.exception.QueryException;
-import v1.Model.Source;
+import v1.model.Source;
 import v1.utility.Configuration;
 
 import java.util.ArrayList;

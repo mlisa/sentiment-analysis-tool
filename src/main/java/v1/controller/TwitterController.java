@@ -1,7 +1,7 @@
 package v1.controller;
 
 import twitter4j.*;
-import v1.Model.Data;
+import v1.model.Data;
 import v1.exception.QueryException;
 import v1.utility.Configuration;
 import v1.utility.Normalizer;

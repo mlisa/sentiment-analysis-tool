@@ -1,4 +1,4 @@
-package v1.Model;
+package v1.model;
 
 /**
  * POJO class that represents the final report of the classification.

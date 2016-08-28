@@ -1,7 +1,7 @@
 package v1.utility;
 
-import v1.Model.Data;
-import v1.Model.Tweet;
+import v1.model.Data;
+import v1.model.Tweet;
 
 /**
  * Class that implements the logic with which some parameters are computed. Those parameters may depend on Data's source,

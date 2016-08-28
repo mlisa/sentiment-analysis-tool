@@ -1,4 +1,4 @@
-package v1.Model;
+package v1.model;
 
 import java.time.Instant;
 import java.util.Date;

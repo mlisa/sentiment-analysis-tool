@@ -1,5 +1,5 @@
 package v1.classifiers;
-import v1.Model.ClassifierResult;
+import v1.model.ClassifierResult;
 
 /**
  * Created by lisamazzini on 22/08/16.

@@ -1,10 +1,10 @@
 package v1.classifiers;
 
 
-import v1.Model.ClassifierResult;
-import v1.Model.Data;
-import v1.Model.Report;
-import v1.Model.TrainingSet;
+import v1.model.ClassifierResult;
+import v1.model.Data;
+import v1.model.Report;
+import v1.model.TrainingSet;
 import v1.utility.Logic;
 import v1.utility.SemanticAnalyzer;
 
@@ -42,7 +42,8 @@ public abstract class MultiClassifier {
     protected Report report;
 
     /**Public constructor
-     * @param classifiers list of GenericClassifiers used to compute the result*/
+     * @param classifiers list of GenericClassifiers used to compute the result
+     * @throws Exception if in the configuration are specified unsupported type of classifier*/
     public MultiClassifier(List<GenericClassifier> classifiers) throws Exception {
         this.simpleClassifiers = classifiers;
     }
@@ -98,6 +99,7 @@ public abstract class MultiClassifier {
     /**Method that computes the relevance of the Data, based of some parameters of visibility
      * @param data Data to evaluate
      * @return a numeric value that represents the relevance
+     * @throws Exception if Data is from an unsupported Source
      * @see Data*/
     protected Double evaluateRelevance(Data data) throws Exception {
         return Logic.computeRelevance(data);

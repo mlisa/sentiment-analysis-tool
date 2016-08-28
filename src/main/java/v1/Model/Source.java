@@ -1,7 +1,4 @@
-package v1.Model;
-
-import java.util.ArrayList;
-import java.util.List;
+package v1.model;
 
 /**
  * Enum that represents the possible sources of Data.

@@ -10,7 +10,7 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.store.FSDirectory;
-import v1.Model.TrainingText;
+import v1.model.TrainingText;
 import v1.utility.HibernateUtil;
 import v1.utility.Normalizer;
 
@@ -59,27 +59,31 @@ public class IndexController {
         }
     }
 
-    /**Getter for the Directory*/
+    /**Getter for the Directory
+     * @return Directory*/
     public Directory getDirectory(){
         return this.directory;
     }
 
-    /**Getter for the Analyzer */
+    /**Getter for the Analyzer
+     * @return Analyzer*/
     public Analyzer getAnalyzer(){
         return this.analyzer;
     }
 
-    /**Getter for the field text*/
+    /**Getter for the field text
+     * @return field text*/
     public String getFieldText(){
         return FIELD_TEXT;
     }
 
-    /**Getter fot the field class*/
+    /**Getter fot the field class
+     * @return field class*/
     public String getFieldClass(){
         return FIELD_CLASS;
     }
 
-    /**Method that populates the Indext, getting training text from the database*/
+    /**Method that populates the Index, getting training text from the database*/
     public void populateIndex(){
         HibernateUtil hb = new HibernateUtil();
         List<TrainingText> trainingTextList = hb.getTrainingSetText(this.trainingSetId);

@@ -5,8 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import v1.Model.TestText;
-import v1.Model.TrainingText;
+import v1.model.TestText;
+import v1.model.TrainingText;
 
 import javax.persistence.Query;
 

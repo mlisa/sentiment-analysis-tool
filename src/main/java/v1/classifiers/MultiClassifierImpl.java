@@ -1,8 +1,8 @@
 package v1.classifiers;
 
-import v1.Model.ClassifierResult;
-import v1.Model.Data;
-import v1.Model.Report;
+import v1.model.ClassifierResult;
+import v1.model.Data;
+import v1.model.Report;
 
 import java.util.List;
 

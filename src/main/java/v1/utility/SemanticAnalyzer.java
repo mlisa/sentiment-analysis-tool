@@ -1,6 +1,6 @@
 package v1.utility;
 
-import v1.Model.Data;
+import v1.model.Data;
 import org.apache.commons.lang3.StringUtils;
 /**
  * TODO : doc

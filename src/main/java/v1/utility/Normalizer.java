@@ -1,8 +1,8 @@
 package v1.utility;
 
 import twitter4j.Status;
-import v1.Model.Data;
-import v1.Model.Tweet;
+import v1.model.Data;
+import v1.model.Tweet;
 
 import java.util.ArrayList;
 import java.util.List;

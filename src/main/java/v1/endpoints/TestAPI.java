@@ -1,10 +1,10 @@
 package v1.endpoints;
 
 import org.springframework.web.bind.annotation.*;
-import v1.Model.Data;
-import v1.Model.Report;
-import v1.Model.TestData;
-import v1.Model.TestText;
+import v1.model.Data;
+import v1.model.Report;
+import v1.model.TestData;
+import v1.model.TestText;
 import v1.classifiers.MultiClassifier;
 import v1.utility.Configuration;
 import v1.utility.HibernateUtil;
@@ -14,14 +14,16 @@ import java.util.*;
 /**
  * Class that uses Spring framework create API for the client to pass the query params and get back the response.
  */
-@CrossOrigin(origins = api.CORS)
+@CrossOrigin(origins = MainAPI.CORS)
 @RestController
-public class test {
+public class TestAPI {
 
     protected static final String CORS = "http://127.0.0.1:8089";
 
 
-    /**Method that maps the address with '/test'*/
+    /**Method that maps the address with '/test'
+     * @return final report
+     * @see Report*/
     @RequestMapping("/test")
     public Report test() {
 

@@ -1,4 +1,4 @@
-package v1.Model;
+package v1.model;
 
 /**
  * POJO class that represents a result from a Classifier (can be both MultiClassifier or GenericClassifier)

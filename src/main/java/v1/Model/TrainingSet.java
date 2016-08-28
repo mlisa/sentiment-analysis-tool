@@ -1,4 +1,4 @@
-package v1.Model;
+package v1.model;
 
 /**
  * Created by lisamazzini on 26/08/16.

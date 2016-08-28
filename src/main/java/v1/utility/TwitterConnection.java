@@ -24,6 +24,7 @@ public class TwitterConnection {
 
     /**This method computes the List of Status from Twitter that matches the query params.
      * @param maxId biggest id to retrieve, used to get more than 100 results, querying repeatedly from API
+     * @throws TwitterException if the Query is not correct
      * @return the list of Status*/
     public List<Status> getStatusList(Long maxId) throws TwitterException {
         ConfigurationBuilder cb = new ConfigurationBuilder();

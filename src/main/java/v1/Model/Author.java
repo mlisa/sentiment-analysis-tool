@@ -1,4 +1,4 @@
-package v1.Model;
+package v1.model;
 
 /**
  * Interface that represents a genereric data author

@@ -7,8 +7,8 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.LeafReader;
 import org.apache.lucene.index.SlowCompositeReaderWrapper;
 import org.apache.lucene.util.BytesRef;
-import v1.Model.ClassifierResult;
-import v1.Model.TrainingSet;
+import v1.model.ClassifierResult;
+import v1.model.TrainingSet;
 import v1.controller.IndexController;
 
 import java.io.IOException;
@@ -31,7 +31,8 @@ public class ClassifierBayes implements GenericClassifier{
 
     /**Public constructor
      * @param weight weight of Classifier
-     * @param trainingSetId id of the training set that will be used to train the classifier*/
+     * @param trainingSetId id of the training set that will be used to train the classifier
+     * @param minConfidence minimun score for a result in order to be considered classifiable*/
     public ClassifierBayes(Double weight, Integer trainingSetId, Double minConfidence) {
         this.weight = weight;
         this.indexController = new IndexController(trainingSetId);

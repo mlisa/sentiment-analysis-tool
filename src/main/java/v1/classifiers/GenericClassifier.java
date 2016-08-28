@@ -1,7 +1,7 @@
 package v1.classifiers;
 
-import v1.Model.ClassifierResult;
-import v1.Model.TrainingSet;
+import v1.model.ClassifierResult;
+import v1.model.TrainingSet;
 
 /**
  * Interface that represents a GenericClassifier, that will be used inside a MultiClassifier object to classify Data.
