@@ -1,5 +1,6 @@
 package v1.controller;
 
+import v1.classifiers.GenericMultiClassifier;
 import v1.model.Data;
 import v1.model.Report;
 import v1.classifiers.MultiClassifier;
@@ -21,7 +22,7 @@ public class MainController {
 
     /**List of MultiClassifiers that will classify the Data
      * @see MultiClassifier */
-    private MultiClassifier multiClassifier;
+    private GenericMultiClassifier multiClassifier;
     /**List of Data to classify
      * @see Data*/
     private List<Data> dataList = new ArrayList<>();
@@ -40,15 +41,9 @@ public class MainController {
 
     public void setParams(Map<String, String> params) throws QueryException {
 
-        sourceControllers.clear();
+        this.sourceControllers.clear();
         //Creo i controller per ogni sorgente
-        for(String source : Configuration.getSources()){
-            if(source.equals(Source.TWITTER.getName())){
-                sourceControllers.add(new TwitterController(params));
-            }else{
-                throw new UnsupportedOperationException("Source not supported yet");
-            }
-        }
+        this.sourceControllers = Configuration.getSources(params);
 
         //Prendo tutti i dati dalle varie sorgenti
         for(SourceController sourceController : sourceControllers){

@@ -34,7 +34,8 @@
       "max_query" : 180,
       "max_tweet_num" : 200,
       "tweets_per_query": 100
-      }
+      },
+    "test" : false
 
   }
 }

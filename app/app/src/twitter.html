@@ -39,13 +39,14 @@
                         <label for="toDateForm">Alla data</label>
                         <input type="date" class="form-control" id="toDateForm" ng-model="toDate">
                     </div>
+                    <div id="checkboxes">
+                        <input type="checkbox" ng-model="noURL.value"/> No URL
+                        <input type="checkbox" ng-model="noMedia.value"/> No Media
+                    </div>
+                    <input class="btn btn-primary" type="Submit" value="Analizza" ng-click="getTweets()">
+                    <button class="btn btn-primary"  ng-click="test()">Test</button>
                 </div>
-                <div>
-                    <input type="checkbox" ng-model="noURL.value"/> No URL
-                    <input type="checkbox" ng-model="noMedia.value"/> No Media
-                </div>
-                <input class="btn btn-primary" type="Submit" value="Analizza" ng-click="getTweets()">
-                <button class="btn btn-primary"  ng-click="test()">Test</button>
+
 
 
             </form>

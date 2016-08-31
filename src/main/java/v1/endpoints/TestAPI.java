@@ -1,13 +1,12 @@
 package v1.endpoints;
 
 import org.springframework.web.bind.annotation.*;
-import v1.model.Data;
-import v1.model.Report;
-import v1.model.TestData;
-import v1.model.TestText;
+import v1.classifiers.ClassifierBayes;
+import v1.model.*;
 import v1.classifiers.MultiClassifier;
 import v1.utility.Configuration;
 import v1.utility.HibernateUtil;
+import v1.utility.Normalizer;
 
 import java.util.*;
 
@@ -29,13 +28,18 @@ public class TestAPI {
 
         List<Data> testData = new ArrayList<>();
         HibernateUtil h = new HibernateUtil();
-        List<TestText> test = h.getTestSetList(2);
-        test.addAll(h.getTestSetList(1));
-        test.addAll(h.getTestSetList(0));
+        List<TestText> test = h.getTestSetList(9);
+        test.addAll(h.getTestSetList(8));
+        /*test.addAll(h.getTestSetList(4));
+        test.addAll(h.getTestSetList(5));
+        test.addAll(h.getTestSetList(6));
+        test.addAll(h.getTestSetList(7));*/
+        int countGiuste = 0;
 
         for(TestText t : test){
-            testData.add(new TestData(t.getText()));
+            testData.add(new TestData(Normalizer.normalizeText(t.getText()), t.getPolarity()));
         }
+
 
         MultiClassifier multiClassifier = Configuration.getMulticlassifier();
         multiClassifier.computeOpinion(testData);

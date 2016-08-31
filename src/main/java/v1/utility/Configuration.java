@@ -4,9 +4,13 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigObject;
 import v1.classifiers.*;
+import v1.controller.SourceController;
+import v1.controller.TwitterController;
+import v1.model.Source;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class that reads from the configuration file in the resources folder. It is based on
@@ -16,9 +20,20 @@ public class Configuration {
 
     /**Getter for the sources from where the app gets its data
      * @return list of String representing the sources*/
-    public static List<String> getSources(){
+    public static List<SourceController> getSources(Map<String, String> params){
+
         Config config = ConfigFactory.load();
-        return config.getStringList("app.sources");
+        List<String> sources = config.getStringList("app.sources");
+        List<SourceController> sourceControllers = new ArrayList<>();
+
+        for(String source : sources){
+            if(source.equals(Source.TWITTER.getName())){
+                sourceControllers.add(new TwitterController(params));
+            }else{
+                throw new UnsupportedOperationException("Source not supported yet");
+            }
+        }
+        return sourceControllers;
     }
 
     /**Getter for the OAuthConsumerKey for Twitter API
@@ -91,6 +106,11 @@ public class Configuration {
         return c.getInt("app.twitter.tweets_per_query");
     }
 
+    public static boolean isTest(){
+        Config c = ConfigFactory.load();
+        return c.getBoolean("app.test");
+    }
+
     /**Getter for GenericClassifiers that will be used inside a given Multiclassifier.
      * @param multiclassifierName name of the MultiClassifier from which the configuration will be read
      * @return list of GenericClassifier
@@ -117,6 +137,7 @@ public class Configuration {
 
         return classifiers;
     }
+
 
 
 

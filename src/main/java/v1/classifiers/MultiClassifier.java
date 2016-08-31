@@ -17,7 +17,7 @@ import java.util.List;
  * with different algorithms.
  */
 
-public abstract class MultiClassifier {
+public abstract class MultiClassifier implements GenericMultiClassifier{
 
     private static final String POSITIVE = "positivo";
     private static final String NEGATIVE = "negativo";
@@ -35,6 +35,8 @@ public abstract class MultiClassifier {
      * @see ClassifierResult*/
     //Lista in cui ci sono i risultati di tutti i tweet passati in input
     protected List<ClassifierResult> finalResultsForData = new ArrayList<>();
+
+    protected int countGiuste = 0;
 
     //Report finale
     /**Final Report
@@ -91,7 +93,7 @@ public abstract class MultiClassifier {
             }
             this.computeFinalResultForData(d);
         }
-
+        System.out.println("Giuste: " + countGiuste + " su totale " + finalResultsForData.size());
         this.computeFinalResult();
 
     }

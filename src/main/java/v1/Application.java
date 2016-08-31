@@ -12,8 +12,6 @@ public class Application {
 
     public static void main(String[] args) {
 
-        System.out.println(SemanticAnalyzer.getAdverbScore("Lo trovo semplicemente fantasticissimo"));
-        System.out.println(SemanticAnalyzer.getSuperlativeScore("Lo trovo semplicemente fantasticissimo"));
         SpringApplication.run(Application.class, args);
 
     }

@@ -18,13 +18,13 @@ public class SemanticAnalyzer {
     }
 
     public static Double getAdverbScore(String data) {
-
+        Double score = 0.0;
         for(String s : data.split(" ")) {
-            if (s.matches("(.*)(mente)")) {
-                return 0.1;
+            if (s.matches("(.*)(mente)") || s.equals("davvero") || s.equals("molto")) {
+                score += 0.05;
             }
         }
-        return 0.0;
+        return score;
     }
 
     public static Double getSuperlativeScore(Data data) {

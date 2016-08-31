@@ -3,6 +3,8 @@ package v1.classifiers;
 import v1.model.ClassifierResult;
 import v1.model.Data;
 import v1.model.Report;
+import v1.model.TestData;
+import v1.utility.Configuration;
 
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class MultiClassifierImpl extends MultiClassifier{
         }
 
         for (ClassifierResult res : finalResultForClassifier){
-            System.out.println("score: " + res.getScore() + ", polarità: " + (res.getPolarity().equals("positivo") ? 1 : -1) + ", peso: "  + res.getWeigth());
+            //System.out.println("score: " + res.getScore() + ", polarità: " + (res.getPolarity().equals("positivo") ? 1 : -1) + ", peso: "  + res.getWeigth());
             numerator += res.getScore() * (res.getPolarity().equals("positivo") ? 1 : -1) * res.getWeigth();
             denominator += res.getWeigth();
         }
@@ -38,11 +40,19 @@ public class MultiClassifierImpl extends MultiClassifier{
 
             Double score = numerator/denominator;
 
-            System.out.println("Testo: " + data.getText() + " punteggio finale:" + score + " ( " + numerator + " diviso " + denominator +"\n\n");
+            //System.out.println("Testo: " + data.getText() + " punteggio finale:" + score + " ( " + numerator + " diviso " + denominator +"\n\n");
             ClassifierResult finalResult = new ClassifierResult((score > 0 ? "positivo" : "negativo"), score, data.getText());
             finalResult.setRelevance(relevance);
             finalResultsForData.add(finalResult);
+            if(Configuration.isTest()){
+                TestData testData = (TestData)data;
+                if(testData.getPolarity().equals(finalResult.getPolarity())){
+                    countGiuste++;
+                }
+            }
         }
+
+
 
         finalResultForClassifier.clear();
     }
