@@ -21,9 +21,10 @@ public class MultiClassifierImpl extends MultiClassifier{
     protected void computeFinalResultForData(Data data){
 
         Double numerator = 0.0;
+        Double neutral = 0.0;
         Double denominator = 0.0;
-        //Rilevanza del dato passato (nel caso di Twitter quanto è visibile, ecc)
         Double relevance = null;
+        ClassifierResult finalResult;
         try {
             relevance = this.evaluateRelevance(data);
         } catch (Exception e) {
@@ -31,26 +32,40 @@ public class MultiClassifierImpl extends MultiClassifier{
         }
 
         for (ClassifierResult res : finalResultForClassifier){
-            //System.out.println("score: " + res.getScore() + ", polarità: " + (res.getPolarity().equals("positivo") ? 1 : -1) + ", peso: "  + res.getWeigth());
-            numerator += res.getScore() * (res.getPolarity().equals("positivo") ? 1 : -1) * res.getWeigth();
+            if(!res.getPolarity().equals("neutro")) {
+                numerator += res.getScore() * (res.getPolarity().equals("positivo") ? 1 : -1) * res.getWeigth();
+            }
             denominator += res.getWeigth();
         }
 
         if (denominator != 0) {
 
+            //Se ci son stati dei neutri, li sommo o sottraggo al risultato in base al segno finale, per non sbilanciare i risultati
             Double score = numerator/denominator;
 
-            //System.out.println("Testo: " + data.getText() + " punteggio finale:" + score + " ( " + numerator + " diviso " + denominator +"\n\n");
-            ClassifierResult finalResult = new ClassifierResult((score > 0 ? "positivo" : "negativo"), score, data.getText());
+            //Se il risultato finale supera la soglia minima di certezza (sia in positivo che in negativo)
+            if (Math.abs(score) >= 0.50){
+                finalResult = new ClassifierResult((score > 0 ? "positivo" : "negativo"), score, data.getText());
+            } else {
+                finalResult = new ClassifierResult("neutro" , 0.0 , data.getText());
+            }
+            //System.out.println("Testo: " + data.getText() + " punteggio finale:" + score + " ( " + numerator + " diviso " + denominator +"");
+
             finalResult.setRelevance(relevance);
+
             finalResultsForData.add(finalResult);
+
             if(Configuration.isTest()){
                 TestData testData = (TestData)data;
+                //System.out.println("Calcolato :" + finalResult.getPolarity() + " polarità reale : " + testData.getPolarity() + "\n");
                 if(testData.getPolarity().equals(finalResult.getPolarity())){
                     countGiuste++;
                 }
             }
+
         }
+
+
 
 
 
@@ -66,6 +81,7 @@ public class MultiClassifierImpl extends MultiClassifier{
         Double denum = 0.0;
         int totPositive = 0;
         int totNegative = 0;
+        int totNeutral = 0;
         double maxNeg = 0;
         double maxPos = 0;
         String posExample = "";
@@ -78,22 +94,26 @@ public class MultiClassifierImpl extends MultiClassifier{
                     maxPos = cl.getScore();
                     posExample = cl.getText();
                 }
-            } else {
+            } else if(cl.getPolarity().equals("negativo")) {
                 totNegative++;
                 if(maxNeg > cl.getScore()){
                     maxNeg = cl.getScore();
                     negExample = cl.getText();
-                }            }
+                }
+            } else {
+                totNeutral++;
+            }
             num += cl.getRelevance() * cl.getScore();
             denum += cl.getRelevance();
         }
 
-
-
         Double result = num/denum;
 
-        this.report = new Report(result > 0 ? "Nel complesso Positivo" : "Nel complesso Negativo", totPositive, totNegative, posExample, negExample );
-
+        if(Math.abs(result) > 0.5) {
+            this.report = new Report(result > 0 ? "Complessivamente l'opinione è positiva" : "Complessivamente l'opinione è negativa", totPositive, totNegative, totNeutral, posExample, negExample);
+        } else {
+            this.report = new Report("Complessivamente l'opinione è neutrale", totPositive, totNegative, totNeutral, posExample, negExample);
+        }
         finalResultsForData.clear();
 
     }

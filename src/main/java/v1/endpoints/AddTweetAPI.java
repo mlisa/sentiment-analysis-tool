@@ -64,7 +64,7 @@ public class AddTweetAPI {
         HibernateUtil h = new HibernateUtil();
 
         for (Data d: data ) {
-            h.setTrainingText(d.getText(), "negativo", 5);
+            h.setTrainingText(d.getText(), "positivo", 5);
             //System.out.println(d.getText());
         }
 

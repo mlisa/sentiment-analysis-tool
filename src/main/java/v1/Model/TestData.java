@@ -11,11 +11,13 @@ public class TestData implements Data {
     private Date date;
     private String text;
     private Source source;
+    private String polarity;
 
-    public TestData(String text) {
+    public TestData(String text, String polarity) {
         this.text = text;
         this.date = Date.from(Instant.now());
         this.source = Source.TEST;
+        this.polarity = polarity;
     }
 
     @Override
@@ -45,5 +47,13 @@ public class TestData implements Data {
 
     public void setSource(Source source) {
         this.source = source;
+    }
+
+    public String getPolarity() {
+        return polarity;
+    }
+
+    public void setPolarity(String polarity) {
+        this.polarity = polarity;
     }
 }

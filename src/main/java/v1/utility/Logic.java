@@ -21,7 +21,7 @@ public class Logic {
                 Integer followers = tweet.getAuthor().getFollowers();
                 Integer retweet = tweet.getRetweets();
 
-                return Math.log10(favourites*0.2+followers*0.6+retweet*0.4);
+                return favourites*0.1+followers*0.3+retweet*0.25;
             case TEST:
                 return 1.0;
             default:

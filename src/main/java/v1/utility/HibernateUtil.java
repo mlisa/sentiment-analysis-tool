@@ -50,7 +50,7 @@ public class HibernateUtil {
     /**Method that allows to add a new Training Text to the database.
      * @param text text to add
      * @param polarity class of the given text
-     * @param trainingSetId id of the set where the text will be added
+     * @param trainingSetId id of the set where the text will be added*/
 
     public void setTrainingText(String text, String polarity, int trainingSetId){
         buildSessionFactory();
@@ -63,7 +63,7 @@ public class HibernateUtil {
         session.save(trainingText);
         t.commit();
         session.close();
-    }*/
+    }
 
     /**Method that gives back a list of test text belonging to the given test set
      * @param testSetId id of the requested test set

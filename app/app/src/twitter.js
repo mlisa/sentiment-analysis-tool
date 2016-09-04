@@ -28,6 +28,7 @@ angular.module('myApp.twitter', ['ngResource'])
                     $scope.result = report.result;
                     $scope.positive = report.positive;
                     $scope.negative = report.negative;
+                    $scope.neutral = report.neutral;
                     $scope.total = report.total;
                     $scope.esNegative = report.negExample;
                     $scope.esPositive = report.posExample;
@@ -37,12 +38,14 @@ angular.module('myApp.twitter', ['ngResource'])
                         data: {
                             columns: [
                                 ["Positivi", report.positive],
-                                ["Negativi", report.negative]
+                                ["Negativi", report.negative],
+                                ["Neutri", report.neutral]
                             ],
                             type: 'pie',
                             colors: {
                                 Positivi: '#26A65B',
                                 Negativi: '#D91E18',
+                                Neutri: '#FDD835'
                             }
                         },
                     });
@@ -61,6 +64,7 @@ angular.module('myApp.twitter', ['ngResource'])
                     $scope.result = report.result;
                     $scope.positive = report.positive;
                     $scope.negative = report.negative;
+                    $scope.neutral = report.neutral;
                     $scope.total = report.total;
                     $scope.esNegative = report.negExample;
                     $scope.esPositive = report.posExample;
@@ -70,12 +74,15 @@ angular.module('myApp.twitter', ['ngResource'])
                         data: {
                             columns: [
                                 ["Positivi", report.positive],
-                                ["Negativi", report.negative]
+                                ["Negativi", report.negative],
+                                ["Neutri", report.neutral]
+
                             ],
                             type: 'pie',
                             colors: {
                                 Positivi: '#26A65B',
                                 Negativi: '#D91E18',
+                                Neutri: '#FDD835',
                             }
                         },
                     });

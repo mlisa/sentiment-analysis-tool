@@ -28,12 +28,12 @@ public class TestAPI {
 
         List<Data> testData = new ArrayList<>();
         HibernateUtil h = new HibernateUtil();
-        List<TestText> test = h.getTestSetList(9);
-        test.addAll(h.getTestSetList(8));
-        /*test.addAll(h.getTestSetList(4));
-        test.addAll(h.getTestSetList(5));
-        test.addAll(h.getTestSetList(6));
-        test.addAll(h.getTestSetList(7));*/
+        List<TestText> test = h.getTestSetList(5);
+        test.addAll(h.getTestSetList(4));
+//        test.addAll(h.getTestSetList(4));
+//        test.addAll(h.getTestSetList(5));
+//        test.addAll(h.getTestSetList(6));
+//        test.addAll(h.getTestSetList(7));
         int countGiuste = 0;
 
         for(TestText t : test){

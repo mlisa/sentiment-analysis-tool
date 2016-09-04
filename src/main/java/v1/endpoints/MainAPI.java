@@ -55,7 +55,7 @@ public class MainAPI {
         try {
             mainController.setParams(params);
         } catch (QueryException e) {
-            return new Report("", 0,0,"","", e.getMessage());
+            return new Report("", 0,0, 0,"","", e.getMessage());
         }
 
         return mainController.getReport();

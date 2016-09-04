@@ -4,12 +4,12 @@ package v1.model;
  * POJO class that represents the final report of the classification.
  */
 
-//Sarà il risultato da far restituire dalle API
 public class Report {
 
     private String result;
     private int positive;
     private int negative;
+    private int neutral;
     private int total;
     private String negExample;
     private String posExample;
@@ -17,13 +17,14 @@ public class Report {
     private String message;
 
 
-    public Report(String result, int positive, int negative, String posExample, String negExample) {
+    public Report(String result, int positive, int negative, int neutral, String posExample, String negExample) {
         this.result = result;
         this.positive = positive;
         this.negative = negative;
+        this.neutral = neutral;
         this.negExample = negExample;
         this.posExample = posExample;
-        this.total = positive+negative;
+        this.total = positive+negative+neutral;
         if(this.total != 0){
             this.status = "OK";
         }else{
@@ -32,13 +33,14 @@ public class Report {
         }
     }
 
-    public Report(String result, int positive, int negative, String posExample, String negExample, String msg) {
+    public Report(String result, int positive, int negative, int neutral, String posExample, String negExample, String msg) {
         this.result = result;
         this.positive = positive;
         this.negative = negative;
+        this.neutral = neutral;
         this.negExample = negExample;
         this.posExample = posExample;
-        this.total = positive+negative;
+        this.total = positive+negative+neutral;
         if(this.total != 0){
             this.status = "OK";
         }else{
@@ -58,6 +60,10 @@ public class Report {
 
     public int getNegative() {
         return negative;
+    }
+
+    public int getNeutral() {
+        return neutral;
     }
 
     public String getNegExample() {

@@ -77,15 +77,13 @@ public abstract class MultiClassifier implements GenericMultiClassifier{
                     result.setWeigth(c.getWeight());
                     result.setWeigth(result.getWeigth()+ SemanticAnalyzer.getAdverbScore(d));
 
-
-
                     if(result.getPolarity().equals(POSITIVE)){
                         result.setWeigth(result.getWeigth() + SemanticAnalyzer.getPositiveEmoticonScore(d) - SemanticAnalyzer.getNegativeEmoticonScore(d));
-                    }else{
+                    }else if (result.getPolarity().equals(NEGATIVE)){
                         result.setWeigth(result.getWeigth() - SemanticAnalyzer.getPositiveEmoticonScore(d) + SemanticAnalyzer.getNegativeEmoticonScore(d));
                     }
 
-                    if (!(c.getTrainingSet().getId() == TrainingSet.SUPERLATIVES.getId() && c.getWeight() * SemanticAnalyzer.getSuperlativeScore(d) == 0)) {
+                    if (c.getTrainingSet().getId() != TrainingSet.SUPERLATIVES.getId() || (c.getTrainingSet().getId() == TrainingSet.SUPERLATIVES.getId() && c.getWeight() * SemanticAnalyzer.getSuperlativeScore(d) != 0)) {
                         finalResultForClassifier.add(result);
                     }
 
@@ -93,7 +91,7 @@ public abstract class MultiClassifier implements GenericMultiClassifier{
             }
             this.computeFinalResultForData(d);
         }
-        System.out.println("Giuste: " + countGiuste + " su totale " + finalResultsForData.size());
+        //System.out.println("Giuste: " + countGiuste + " su totale " + finalResultsForData.size());
         this.computeFinalResult();
 
     }
