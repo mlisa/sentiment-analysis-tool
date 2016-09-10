@@ -69,6 +69,31 @@ public class HibernateUtil {
      * @param testSetId id of the requested test set
      * @return list of test texts
      * @see TestText */
+    public List<TestText> getTestSetList(int testSetId, String polarity){
+        buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction t = session.beginTransaction();
+        Query query;
+        switch (polarity){
+            case "p":
+                query = session.createQuery("FROM TestText WHERE clas = 'positivo' AND testSet = " + testSetId );
+                break;
+            case "ne":
+                query = session.createQuery("FROM TestText WHERE clas = 'neutro' AND testSet = " + testSetId );
+                break;
+            case "n":
+                query = session.createQuery("FROM TestText WHERE clas = 'negativo' AND testSet = " + testSetId );
+                break;
+            default:
+                query = session.createQuery("FROM TestText WHERE testSet = " + testSetId);
+                break;
+        }
+        List<TestText> list = query.getResultList();
+        t.commit();
+        session.close();
+        return list;
+    }
+
     public List<TestText> getTestSetList(int testSetId){
         buildSessionFactory();
         Session session = sessionFactory.openSession();

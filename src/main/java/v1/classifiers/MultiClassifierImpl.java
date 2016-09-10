@@ -63,6 +63,7 @@ public class MultiClassifierImpl extends MultiClassifier{
                 }
             }
 
+
         }
 
 
@@ -109,7 +110,7 @@ public class MultiClassifierImpl extends MultiClassifier{
 
         Double result = num/denum;
 
-        if(Math.abs(result) > 0.5) {
+        if(Math.abs(result) > 0.4 ) {
             this.report = new Report(result > 0 ? "Complessivamente l'opinione è positiva" : "Complessivamente l'opinione è negativa", totPositive, totNegative, totNeutral, posExample, negExample);
         } else {
             this.report = new Report("Complessivamente l'opinione è neutrale", totPositive, totNegative, totNeutral, posExample, negExample);

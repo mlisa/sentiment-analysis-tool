@@ -40,7 +40,7 @@ public class TestText {
         this.text = text;
     }
 
-    @Column(name = "class")
+    @Column(name = "clas")
     public String getPolarity() {
         return polarity;
     }

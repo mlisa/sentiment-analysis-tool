@@ -28,13 +28,13 @@ public class TestAPI {
 
         List<Data> testData = new ArrayList<>();
         HibernateUtil h = new HibernateUtil();
-        List<TestText> test = h.getTestSetList(5);
-        test.addAll(h.getTestSetList(4));
+        List<TestText> test = h.getTestSetList(8, "p");
+        test.addAll(h.getTestSetList(9, "p"));
 //        test.addAll(h.getTestSetList(4));
 //        test.addAll(h.getTestSetList(5));
 //        test.addAll(h.getTestSetList(6));
 //        test.addAll(h.getTestSetList(7));
-        int countGiuste = 0;
+        //int countGiuste = 0;
 
         for(TestText t : test){
             testData.add(new TestData(Normalizer.normalizeText(t.getText()), t.getPolarity()));

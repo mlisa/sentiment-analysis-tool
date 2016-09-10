@@ -91,7 +91,7 @@ public abstract class MultiClassifier implements GenericMultiClassifier{
             }
             this.computeFinalResultForData(d);
         }
-        //System.out.println("Giuste: " + countGiuste + " su totale " + finalResultsForData.size());
+        System.out.println("Giuste: " + countGiuste + " su totale " + finalResultsForData.size() + " in percentuale : " + countGiuste*100/finalResultsForData.size());
         this.computeFinalResult();
 
     }
