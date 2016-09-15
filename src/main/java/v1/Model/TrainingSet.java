@@ -8,7 +8,8 @@ public enum TrainingSet {
     NRC(4),
     REAL_TEXTS(5),
     SUPERLATIVES(6),
-    HASHTAGS(7);
+    HASHTAGS(7),
+    ALL(10);
 
     private int id;
 

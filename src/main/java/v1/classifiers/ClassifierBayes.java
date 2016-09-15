@@ -51,6 +51,9 @@ public class ClassifierBayes implements GenericClassifier{
             case 7:
                 this.trainingSet = TrainingSet.HASHTAGS;
                 break;
+            case 10:
+                this.trainingSet = TrainingSet.ALL;
+                break;
             default:
                 throw new UnsupportedOperationException("Training set id not correct");
         }

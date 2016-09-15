@@ -1,5 +1,4 @@
 /**
- * Created by albertogiunta on 27/06/16
  */
 'use strict';
 

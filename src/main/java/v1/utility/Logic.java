@@ -20,8 +20,12 @@ public class Logic {
                 Integer favourites = tweet.getFavourites();
                 Integer followers = tweet.getAuthor().getFollowers();
                 Integer retweet = tweet.getRetweets();
+                Double relevance = favourites*0.1+followers*0.3+retweet*0.25;
 
-                return favourites*0.1+followers*0.3+retweet*0.25;
+                System.out.println("Relevance: " +  relevance);
+
+                return relevance;
+
             case TEST:
                 return 1.0;
             default:

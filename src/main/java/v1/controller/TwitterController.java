@@ -60,6 +60,7 @@ public class TwitterController implements SourceController{
         }
 
         List<Data> datas = Normalizer.normalizeTweets(list);
+        System.out.println(datas.size());
         list.clear();
         return datas;
     }

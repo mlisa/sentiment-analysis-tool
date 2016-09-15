@@ -3,9 +3,9 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
     'ngRoute',
-    'ngResource',
+    'ngWebSocket',
     'ngSanitize',  
-    'myApp.twitter'
+    'myApp.ws'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

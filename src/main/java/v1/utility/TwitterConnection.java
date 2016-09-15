@@ -43,6 +43,7 @@ public class TwitterConnection {
         List<Status> list = searchResource.search(this.buildQuery(maxId)).getTweets();
         for (Status result : list) {
             //Adding only original tweets, no retweets, and checking if they contain media o urls, if the parameters are true in the query map
+            System.out.println(params.toString());
             if(!((params.get("noURL").equals("true") && result.getURLEntities().length != 0) ||  (params.get("noMedia").equals("true") && result.getMediaEntities().length != 0)) && !result.isRetweet())
                 finalResult.add(result);
         }
